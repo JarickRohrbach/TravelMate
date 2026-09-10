@@ -1,0 +1,1140 @@
+/* =====================================================
+   TRAVELMATE
+   Complete JavaScript
+   ===================================================== */
+
+
+/* =====================================================
+   1. TRANSLATIONS
+   ===================================================== */
+
+const translations = {
+
+  de: {
+
+    settings: "⚙️ Einstellungen",
+    language: "Sprache",
+
+    currencyTitle: "💱 Währungsrechner",
+    amount: "Betrag",
+    from: "Von",
+    to: "Nach",
+    convert: "Umrechnen",
+
+    loadingCurrencies: "Währungen werden geladen...",
+    loadingRate: "Wechselkurs wird geladen...",
+    resultPlaceholder: "Ergebnis erscheint hier",
+    conversionError: "Wechselkurs konnte nicht geladen werden.",
+
+    connectionTitle: "✈️ Anschlussrechner",
+    departure: "Abflug",
+    arrival: "Ankunft",
+    calculate: "Berechnen",
+    connectionResult: "Umsteigezeit",
+
+    budgetTitle: "💰 Reisebudget",
+    accommodation: "Unterkunft",
+    food: "Essen",
+    transport: "Transport",
+    other: "Sonstiges",
+    total: "Gesamtkosten",
+
+    accountTitle: "👤 Mein Account",
+    notLoggedIn: "Noch nicht angemeldet",
+    login: "Anmelden",
+    createAccount: "Account erstellen",
+    logout: "Abmelden",
+
+    email: "E-Mail-Adresse",
+    password: "Passwort",
+    welcome: "Willkommen bei TravelMate!",
+
+    home: "Startseite",
+    travel: "Reise",
+    calculator: "Rechner",
+
+    invalidAmount: "Bitte gib einen gültigen Betrag ein.",
+    chooseCurrencies: "Bitte wähle beide Währungen.",
+    sameCurrency: "Die Währungen sind identisch."
+  },
+
+
+  en: {
+
+    settings: "⚙️ Settings",
+    language: "Language",
+
+    currencyTitle: "💱 Currency Converter",
+    amount: "Amount",
+    from: "From",
+    to: "To",
+    convert: "Convert",
+
+    loadingCurrencies: "Loading currencies...",
+    loadingRate: "Loading exchange rate...",
+    resultPlaceholder: "Result appears here",
+    conversionError: "Exchange rate could not be loaded.",
+
+    connectionTitle: "✈️ Connection Calculator",
+    departure: "Departure",
+    arrival: "Arrival",
+    calculate: "Calculate",
+    connectionResult: "Connection time",
+
+    budgetTitle: "💰 Travel Budget",
+    accommodation: "Accommodation",
+    food: "Food",
+    transport: "Transport",
+    other: "Other",
+    total: "Total cost",
+
+    accountTitle: "👤 My Account",
+    notLoggedIn: "Not logged in",
+    login: "Sign in",
+    createAccount: "Create account",
+    logout: "Sign out",
+
+    email: "Email address",
+    password: "Password",
+    welcome: "Welcome to TravelMate!",
+
+    home: "Home",
+    travel: "Trip",
+    calculator: "Calculator",
+
+    invalidAmount: "Please enter a valid amount.",
+    chooseCurrencies: "Please select both currencies.",
+    sameCurrency: "The currencies are identical."
+  }
+
+};
+
+
+/* =====================================================
+   2. LANGUAGE SYSTEM
+   ===================================================== */
+
+function getLanguage() {
+
+  return localStorage.getItem(
+    "travelmateLanguage"
+  ) || "de";
+
+}
+
+
+function setLanguage(language) {
+
+  if (!translations[language]) {
+    language = "de";
+  }
+
+  localStorage.setItem(
+    "travelmateLanguage",
+    language
+  );
+
+  applyLanguage(language);
+
+}
+
+
+function changeLanguage() {
+
+  const selector =
+    document.getElementById("languageSelect");
+
+  if (!selector) return;
+
+  setLanguage(selector.value);
+
+}
+
+
+function applyLanguage(language) {
+
+  const t =
+    translations[language];
+
+  /*
+   * Elemente mit IDs
+   */
+
+  const elements = {
+
+    settingsTitle: t.settings,
+    languageLabel: t.language,
+
+    currencyConverterTitle:
+      t.currencyTitle,
+
+    amountLabel:
+      t.amount,
+
+    fromCurrencyLabel:
+      t.from,
+
+    toCurrencyLabel:
+      t.to,
+
+    connectionTitle:
+      t.connectionTitle,
+
+    departureLabel:
+      t.departure,
+
+    arrivalLabel:
+      t.arrival,
+
+    connectionTimeLabel:
+      t.connectionResult,
+
+    budgetTitle:
+      t.budgetTitle,
+
+    accommodationLabel:
+      t.accommodation,
+
+    foodLabel:
+      t.food,
+
+    transportLabel:
+      t.transport,
+
+    otherLabel:
+      t.other,
+
+    totalLabel:
+      t.total,
+
+    accountTitle:
+      t.accountTitle,
+
+    accountStatus:
+      t.notLoggedIn
+  };
+
+
+  Object.keys(elements).forEach(function(id) {
+
+    const element =
+      document.getElementById(id);
+
+    if (element) {
+
+      element.textContent =
+        elements[id];
+
+    }
+
+  });
+
+
+  /*
+   * Währungsrechner Button
+   */
+
+  const convertButton =
+    document.querySelector(
+      'button[onclick="convertCurrency()"]'
+    );
+
+  if (convertButton) {
+
+    convertButton.textContent =
+      t.convert;
+
+  }
+
+
+  /*
+   * Sprache auswählen
+   */
+
+  const selector =
+    document.getElementById(
+      "languageSelect"
+    );
+
+  if (selector) {
+
+    selector.value =
+      language;
+
+  }
+
+}
+
+
+/* =====================================================
+   3. AUTOMATIC CURRENCY LIST
+   ===================================================== */
+
+async function loadCurrencies() {
+
+  const from =
+    document.getElementById(
+      "fromCurrency"
+    );
+
+  const to =
+    document.getElementById(
+      "toCurrency"
+    );
+
+  if (!from || !to) return;
+
+
+  const language =
+    getLanguage();
+
+  const t =
+    translations[language];
+
+
+  from.innerHTML =
+    `<option value="">
+      ${t.loadingCurrencies}
+    </option>`;
+
+  to.innerHTML =
+    `<option value="">
+      ${t.loadingCurrencies}
+    </option>`;
+
+
+  try {
+
+    const response =
+      await fetch(
+        "https://api.frankfurter.app/currencies"
+      );
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Currency API error"
+      );
+
+    }
+
+
+    const currencies =
+      await response.json();
+
+
+    from.innerHTML = "";
+    to.innerHTML = "";
+
+
+    Object.entries(
+      currencies
+    )
+    .sort(function(a, b) {
+
+      return a[0].localeCompare(
+        b[0]
+      );
+
+    })
+    .forEach(function([code, name]) {
+
+      const optionFrom =
+        document.createElement(
+          "option"
+        );
+
+      optionFrom.value =
+        code;
+
+      optionFrom.textContent =
+        `${code} – ${name}`;
+
+      from.appendChild(
+        optionFrom
+      );
+
+
+      const optionTo =
+        document.createElement(
+          "option"
+        );
+
+      optionTo.value =
+        code;
+
+      optionTo.textContent =
+        `${code} – ${name}`;
+
+      to.appendChild(
+        optionTo
+      );
+
+    });
+
+
+    /*
+     * Standardwährungen
+     */
+
+    if (currencies.EUR) {
+
+      from.value =
+        "EUR";
+
+    }
+
+
+    if (currencies.IDR) {
+
+      to.value =
+        "IDR";
+
+    }
+
+
+  } catch (error) {
+
+    console.error(
+      "Currency loading error:",
+      error
+    );
+
+    from.innerHTML =
+      `<option value="EUR">
+        EUR – Euro
+      </option>`;
+
+    to.innerHTML =
+      `<option value="IDR">
+        IDR – Indonesian Rupiah
+      </option>`;
+
+  }
+
+}
+
+
+/* =====================================================
+   4. CURRENCY CONVERTER
+   ===================================================== */
+
+async function convertCurrency() {
+
+  const amountInput =
+    document.getElementById(
+      "amount"
+    );
+
+  const from =
+    document.getElementById(
+      "fromCurrency"
+    );
+
+  const to =
+    document.getElementById(
+      "toCurrency"
+    );
+
+  const result =
+    document.getElementById(
+      "currencyResult"
+    );
+
+
+  if (
+    !amountInput ||
+    !from ||
+    !to ||
+    !result
+  ) {
+
+    return;
+
+  }
+
+
+  const amount =
+    Number(
+      amountInput.value
+    );
+
+
+  const fromCurrency =
+    from.value;
+
+  const toCurrency =
+    to.value;
+
+
+  const language =
+    getLanguage();
+
+  const t =
+    translations[language];
+
+
+  if (
+    !amount ||
+    amount <= 0
+  ) {
+
+    result.textContent =
+      t.invalidAmount;
+
+    return;
+
+  }
+
+
+  if (
+    !fromCurrency ||
+    !toCurrency
+  ) {
+
+    result.textContent =
+      t.chooseCurrencies;
+
+    return;
+
+  }
+
+
+  if (
+    fromCurrency ===
+    toCurrency
+  ) {
+
+    result.textContent =
+      `${amount} ${fromCurrency} = ${amount} ${toCurrency}`;
+
+    return;
+
+  }
+
+
+  result.textContent =
+    t.loadingRate;
+
+
+  try {
+
+    const url =
+      `https://api.frankfurter.app/latest?amount=${encodeURIComponent(
+        amount
+      )}&from=${encodeURIComponent(
+        fromCurrency
+      )}&to=${encodeURIComponent(
+        toCurrency
+      )}`;
+
+
+    const response =
+      await fetch(url);
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Exchange rate error"
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    if (
+      !data.rates ||
+      data.rates[toCurrency] ===
+      undefined
+    ) {
+
+      throw new Error(
+        "Currency unavailable"
+      );
+
+    }
+
+
+    const converted =
+      data.rates[toCurrency];
+
+
+    const rate =
+      converted / amount;
+
+
+    result.innerHTML =
+      `${amount.toLocaleString(
+        "de-DE"
+      )} ${fromCurrency}
+      =
+      <strong>
+        ${converted.toLocaleString(
+          "de-DE",
+          {
+            maximumFractionDigits: 2
+          }
+        )}
+        ${toCurrency}
+      </strong>
+      <br>
+      <small>
+        1 ${fromCurrency}
+        =
+        ${rate.toLocaleString(
+          "de-DE",
+          {
+            maximumFractionDigits: 4
+          }
+        )}
+        ${toCurrency}
+      </small>`;
+
+
+  } catch (error) {
+
+    console.error(
+      "Conversion error:",
+      error
+    );
+
+    result.textContent =
+      t.conversionError;
+
+  }
+
+}
+
+
+/* =====================================================
+   5. CONNECTION CALCULATOR
+   ===================================================== */
+
+function calculateConnection() {
+
+  const departure =
+    document.getElementById(
+      "departure"
+    );
+
+  const arrival =
+    document.getElementById(
+      "arrival"
+    );
+
+  const result =
+    document.getElementById(
+      "connectionResult"
+    );
+
+
+  if (
+    !departure ||
+    !arrival ||
+    !result
+  ) {
+
+    return;
+
+  }
+
+
+  const departureTime =
+    new Date(
+      departure.value
+    );
+
+  const arrivalTime =
+    new Date(
+      arrival.value
+    );
+
+
+  if (
+    isNaN(
+      departureTime
+    ) ||
+    isNaN(
+      arrivalTime
+    )
+  ) {
+
+    return;
+
+  }
+
+
+  let difference =
+    arrivalTime -
+    departureTime;
+
+
+  if (
+    difference < 0
+  ) {
+
+    difference +=
+      24 * 60 * 60 * 1000;
+
+  }
+
+
+  const minutes =
+    Math.floor(
+      difference /
+      (1000 * 60)
+    );
+
+
+  const hours =
+    Math.floor(
+      minutes / 60
+    );
+
+
+  const remainingMinutes =
+    minutes % 60;
+
+
+  result.textContent =
+    `${hours} h ${remainingMinutes} min`;
+
+}
+
+
+/* =====================================================
+   6. TRAVEL BUDGET
+   ===================================================== */
+
+function calculateBudget() {
+
+  const accommodation =
+    getNumber(
+      "accommodation"
+    );
+
+  const food =
+    getNumber(
+      "food"
+    );
+
+  const transport =
+    getNumber(
+      "transport"
+    );
+
+  const other =
+    getNumber(
+      "other"
+    );
+
+
+  const total =
+    accommodation +
+    food +
+    transport +
+    other;
+
+
+  const result =
+    document.getElementById(
+      "totalResult"
+    );
+
+
+  if (result) {
+
+    result.textContent =
+      total.toLocaleString(
+        "de-DE",
+        {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }
+      ) + " €";
+
+  }
+
+}
+
+
+function getNumber(id) {
+
+  const element =
+    document.getElementById(id);
+
+  if (!element) {
+    return 0;
+  }
+
+  const value =
+    parseFloat(
+      element.value
+        .replace(",", ".")
+    );
+
+  return isNaN(value)
+    ? 0
+    : value;
+
+}
+
+
+/* =====================================================
+   7. DEMO ACCOUNT
+   ===================================================== */
+
+function openAccount() {
+
+  const modal =
+    document.getElementById(
+      "accountModal"
+    );
+
+  if (modal) {
+
+    modal.style.display =
+      "block";
+
+  }
+
+  updateAccountView();
+
+}
+
+
+function closeAccount() {
+
+  const modal =
+    document.getElementById(
+      "accountModal"
+    );
+
+  if (modal) {
+
+    modal.style.display =
+      "none";
+
+  }
+
+}
+
+
+function createAccount() {
+
+  const email =
+    document.getElementById(
+      "email"
+    );
+
+  const password =
+    document.getElementById(
+      "password"
+    );
+
+  const message =
+    document.getElementById(
+      "accountMessage"
+    );
+
+
+  if (
+    !email ||
+    !password
+  ) return;
+
+
+  if (
+    !email.value ||
+    !password.value
+  ) {
+
+    if (message) {
+
+      message.textContent =
+        "Bitte E-Mail und Passwort eingeben.";
+
+    }
+
+    return;
+
+  }
+
+
+  if (
+    password.value.length < 6
+  ) {
+
+    if (message) {
+
+      message.textContent =
+        "Das Passwort muss mindestens 6 Zeichen haben.";
+
+    }
+
+    return;
+
+  }
+
+
+  /*
+   * DEMO ONLY
+   *
+   * Kein echtes sicheres
+   * Account-System!
+   */
+
+  localStorage.setItem(
+    "travelmateEmail",
+    email.value
+  );
+
+  localStorage.setItem(
+    "travelmateLoggedIn",
+    "true"
+  );
+
+
+  updateAccountView();
+
+}
+
+
+function login() {
+
+  const email =
+    document.getElementById(
+      "email"
+    );
+
+  const password =
+    document.getElementById(
+      "password"
+    );
+
+
+  const savedEmail =
+    localStorage.getItem(
+      "travelmateEmail"
+    );
+
+
+  if (
+    !email ||
+    !password
+  ) return;
+
+
+  if (
+    email.value === savedEmail &&
+    password.value.length >= 6
+  ) {
+
+    localStorage.setItem(
+      "travelmateLoggedIn",
+      "true"
+    );
+
+    updateAccountView();
+
+  } else {
+
+    const message =
+      document.getElementById(
+        "accountMessage"
+      );
+
+    if (message) {
+
+      message.textContent =
+        "Anmeldung fehlgeschlagen.";
+
+    }
+
+  }
+
+}
+
+
+function logout() {
+
+  localStorage.removeItem(
+    "travelmateLoggedIn"
+  );
+
+  updateAccountView();
+
+}
+
+
+function updateAccountView() {
+
+  const loggedIn =
+    localStorage.getItem(
+      "travelmateLoggedIn"
+    ) === "true";
+
+
+  const email =
+    localStorage.getItem(
+      "travelmateEmail"
+    );
+
+
+  const status =
+    document.getElementById(
+      "accountStatus"
+    );
+
+
+  const loginArea =
+    document.getElementById(
+      "loginArea"
+    );
+
+
+  const loggedInArea =
+    document.getElementById(
+      "loggedInArea"
+    );
+
+
+  const loggedInEmail =
+    document.getElementById(
+      "loggedInEmail"
+    );
+
+
+  const language =
+    getLanguage();
+
+  const t =
+    translations[language];
+
+
+  if (loggedIn) {
+
+    if (status) {
+
+      status.textContent =
+        email;
+
+    }
+
+    if (loginArea) {
+
+      loginArea.style.display =
+        "none";
+
+    }
+
+    if (loggedInArea) {
+
+      loggedInArea.style.display =
+        "block";
+
+    }
+
+    if (loggedInEmail) {
+
+      loggedInEmail.textContent =
+        email;
+
+    }
+
+  } else {
+
+    if (status) {
+
+      status.textContent =
+        t.notLoggedIn;
+
+    }
+
+    if (loginArea) {
+
+      loginArea.style.display =
+        "block";
+
+    }
+
+    if (loggedInArea) {
+
+      loggedInArea.style.display =
+        "none";
+
+    }
+
+  }
+
+}
+
+
+/* =====================================================
+   8. CLOSE MODAL WHEN CLICKING OUTSIDE
+   ===================================================== */
+
+window.addEventListener(
+  "click",
+  function(event) {
+
+    const modal =
+      document.getElementById(
+        "accountModal"
+      );
+
+    if (
+      modal &&
+      event.target === modal
+    ) {
+
+      closeAccount();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   9. START TRAVELMATE
+   ===================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+    const language =
+      getLanguage();
+
+
+    const selector =
+      document.getElementById(
+        "languageSelect"
+      );
+
+
+    if (selector) {
+
+      selector.value =
+        language;
+
+    }
+
+
+    applyLanguage(
+      language
+    );
+
+
+    loadCurrencies();
+
+
+    updateAccountView();
+
+  }
+);
