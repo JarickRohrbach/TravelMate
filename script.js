@@ -351,3 +351,57 @@ function updateAccountView() {
     loggedInArea.style.display = "none";
   }
 }
+const translations = {
+  de: {
+    settings: "⚙️ Einstellungen",
+    language: "Sprache",
+    currencyConverter: "Währungsrechner",
+    convert: "Umrechnen",
+    account: "👤 Mein Account"
+  },
+
+  en: {
+    settings: "⚙️ Settings",
+    language: "Language",
+    currencyConverter: "Currency Converter",
+    convert: "Convert",
+    account: "👤 My Account"
+  }
+};
+
+function changeLanguage() {
+  const language =
+    document.getElementById("languageSelect").value;
+
+  localStorage.setItem("travelmateLanguage", language);
+  applyLanguage(language);
+}
+
+function applyLanguage(language) {
+  const t = translations[language];
+
+  document.getElementById("settingsTitle").innerText =
+    t.settings;
+
+  document.getElementById("languageLabel").innerText =
+    t.language;
+
+  const convertButton =
+    document.querySelector(
+      'button[onclick="convertCurrency()"]'
+    );
+
+  if (convertButton) {
+    convertButton.innerText = t.convert;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const savedLanguage =
+    localStorage.getItem("travelmateLanguage") || "de";
+
+  document.getElementById("languageSelect").value =
+    savedLanguage;
+
+  applyLanguage(savedLanguage);
+});
