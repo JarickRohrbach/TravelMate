@@ -276,3 +276,144 @@ async function loadCurrencies() {
     console.error(error);
   }
 }
+function openAccount() {
+
+  document.getElementById("accountModal").style.display = "block";
+
+  updateAccountView();
+}
+
+
+function closeAccount() {
+
+  document.getElementById("accountModal").style.display = "none";
+}
+
+
+function createAccount() {
+
+  const email =
+    document.getElementById("email").value;
+
+  const password =
+    document.getElementById("password").value;
+
+  const message =
+    document.getElementById("accountMessage");
+
+  if (!email || !password) {
+
+    message.innerText =
+      "Bitte E-Mail und Passwort eingeben.";
+
+    return;
+  }
+
+  if (password.length < 6) {
+
+    message.innerText =
+      "Das Passwort muss mindestens 6 Zeichen haben.";
+
+    return;
+  }
+
+  localStorage.setItem(
+    "travelmateEmail",
+    email
+  );
+
+  localStorage.setItem(
+    "travelmateLoggedIn",
+    "true"
+  );
+
+  message.innerText =
+    "Account wurde erstellt! 🎉";
+
+  updateAccountView();
+}
+
+
+function login() {
+
+  const email =
+    document.getElementById("email").value;
+
+  const password =
+    document.getElementById("password").value;
+
+  const savedEmail =
+    localStorage.getItem("travelmateEmail");
+
+  const message =
+    document.getElementById("accountMessage");
+
+  if (email === savedEmail && password.length >= 6) {
+
+    localStorage.setItem(
+      "travelmateLoggedIn",
+      "true"
+    );
+
+    updateAccountView();
+
+  } else {
+
+    message.innerText =
+      "E-Mail oder Passwort ist nicht korrekt.";
+  }
+}
+
+
+function logout() {
+
+  localStorage.removeItem(
+    "travelmateLoggedIn"
+  );
+
+  updateAccountView();
+}
+
+
+function updateAccountView() {
+
+  const loggedIn =
+    localStorage.getItem("travelmateLoggedIn");
+
+  const email =
+    localStorage.getItem("travelmateEmail");
+
+  const status =
+    document.getElementById("accountStatus");
+
+  const loginArea =
+    document.getElementById("loginArea");
+
+  const loggedInArea =
+    document.getElementById("loggedInArea");
+
+  const loggedInEmail =
+    document.getElementById("loggedInEmail");
+
+  if (loggedIn === "true") {
+
+    status.innerText =
+      "Angemeldet als " + email;
+
+    loginArea.style.display = "none";
+
+    loggedInArea.style.display = "block";
+
+    loggedInEmail.innerText =
+      email;
+
+  } else {
+
+    status.innerText =
+      "Noch nicht angemeldet";
+
+    loginArea.style.display = "block";
+
+    loggedInArea.style.display = "none";
+  }
+}
