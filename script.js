@@ -394,7 +394,6 @@ function applyLanguage(language) {
   if (convertButton) {
     convertButton.innerText = t.convert;
   }
-}
 
 document.addEventListener("DOMContentLoaded", function () {
   const savedLanguage =
@@ -405,3 +404,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
   applyLanguage(savedLanguage);
 });
+}
