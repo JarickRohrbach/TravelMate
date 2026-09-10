@@ -1,0 +1,73 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f2f7;
+  color: #111;
+}
+
+header {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+header h1 {
+  margin-bottom: 5px;
+}
+
+header p {
+  margin-top: 0;
+  color: #666;
+}
+
+main {
+  max-width: 600px;
+  margin: auto;
+  padding: 15px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 18px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+input,
+select {
+  border: 1px solid #ddd;
+}
+
+button {
+  border: none;
+  background: #007aff;
+  color: white;
+  font-weight: bold;
+}
+
+button:active {
+  opacity: 0.7;
+}
+
+h3 {
+  text-align: center;
+  padding: 10px;
+}
