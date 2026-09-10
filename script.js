@@ -210,3 +210,69 @@ function calculateBudget() {
     });
 }
 loadCurrencies();
+async function loadCurrencies() {
+
+  const fromSelect =
+    document.getElementById("fromCurrency");
+
+  const toSelect =
+    document.getElementById("toCurrency");
+
+  try {
+
+    const response = await fetch(
+      "https://api.frankfurter.dev/v2/currencies"
+    );
+
+    if (!response.ok) {
+      throw new Error("Währungen konnten nicht geladen werden.");
+    }
+
+    const currencies = await response.json();
+
+    fromSelect.innerHTML = "";
+    toSelect.innerHTML = "";
+
+    currencies
+      .sort((a, b) =>
+        a.iso_code.localeCompare(b.iso_code)
+      )
+      .forEach(currency => {
+
+        const option1 =
+          document.createElement("option");
+
+        option1.value = currency.iso_code;
+
+        option1.textContent =
+          `${currency.iso_code} – ${currency.name}`;
+
+        fromSelect.appendChild(option1);
+
+
+        const option2 =
+          document.createElement("option");
+
+        option2.value = currency.iso_code;
+
+        option2.textContent =
+          `${currency.iso_code} – ${currency.name}`;
+
+        toSelect.appendChild(option2);
+      });
+
+    // Standardauswahl
+    fromSelect.value = "EUR";
+    toSelect.value = "IDR";
+
+  } catch (error) {
+
+    fromSelect.innerHTML =
+      '<option value="">Fehler beim Laden</option>';
+
+    toSelect.innerHTML =
+      '<option value="">Fehler beim Laden</option>';
+
+    console.error(error);
+  }
+}
