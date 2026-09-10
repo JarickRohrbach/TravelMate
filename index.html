@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>TravelMate</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>✈️ TravelMate</h1>
+    <p>Deine Reise. Einfacher.</p>
+  </header>
+
+  <main>
+
+    <section class="card">
+      <h2>💱 Währungsrechner</h2>
+
+      <input
+        type="number"
+        id="amount"
+        placeholder="Betrag eingeben"
+      >
+
+<select id="fromCurrency">
+  <option value="">Währungen werden geladen...</option>
+</select>
+
+<select id="toCurrency">
+  <option value="">Währungen werden geladen...</option>
+</select>
+
+      <select id="toCurrency">
+        <option value="IDR">IDR – Indonesische Rupiah</option>
+        <option value="EUR">EUR – Euro</option>
+        <option value="USD">USD – US-Dollar</option>
+        <option value="SGD">SGD – Singapur-Dollar</option>
+      </select>
+
+      <button onclick="convertCurrency()">
+        Umrechnen
+      </button>
+
+      <h3 id="currencyResult">
+        Ergebnis erscheint hier
+      </h3>
+    </section>
+
+
+    <section class="card">
+      <h2>✈️ Anschlussrechner</h2>
+
+      <label>Ankunftszeit</label>
+
+      <input
+        type="time"
+        id="arrivalTime"
+      >
+
+      <label>Abflugzeit</label>
+
+      <input
+        type="time"
+        id="departureTime"
+      >
+
+      <button onclick="calculateConnection()">
+        Anschluss prüfen
+      </button>
+
+      <h3 id="connectionResult">
+        Gib deine Flugzeiten ein
+      </h3>
+    </section>
+
+
+    <section class="card">
+      <h2>💰 Reisebudget</h2>
+
+      <input
+        type="number"
+        id="flight"
+        placeholder="Flugkosten €"
+      >
+
+      <input
+        type="number"
+        id="hotel"
+        placeholder="Unterkunft €"
+      >
+
+      <input
+        type="number"
+        id="food"
+        placeholder="Essen €"
+      >
+
+      <input
+        type="number"
+        id="transport"
+        placeholder="Transport €"
+      >
+
+      <button onclick="calculateBudget()">
+        Budget berechnen
+      </button>
+
+      <h3 id="budgetResult">
+        Dein Reisebudget
+      </h3>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
