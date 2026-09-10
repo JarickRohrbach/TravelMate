@@ -404,4 +404,201 @@ document.addEventListener("DOMContentLoaded", function () {
 
   applyLanguage(savedLanguage);
 });
+
+const translations = {
+
+  de: {
+    settings: "⚙️ Einstellungen",
+    language: "Sprache",
+
+    currencyTitle: "💱 Währungsrechner",
+    amount: "Betrag",
+    fromCurrency: "Von",
+    toCurrency: "Nach",
+    convert: "Umrechnen",
+    loading: "Wechselkurs wird geladen...",
+    result: "Ergebnis erscheint hier",
+    conversionError: "Wechselkurs konnte nicht geladen werden.",
+
+    connectionTitle: "✈️ Anschlussrechner",
+    departure: "Abflug",
+    arrival: "Ankunft",
+    connectionTime: "Umsteigezeit",
+    calculate: "Berechnen",
+
+    budgetTitle: "💰 Reisebudget",
+    accommodation: "Unterkunft",
+    food: "Essen",
+    transport: "Transport",
+    other: "Sonstiges",
+    total: "Gesamtkosten",
+
+    accountTitle: "👤 Mein Account",
+    notLoggedIn: "Noch nicht angemeldet",
+    login: "Anmelden",
+    createAccount: "Account erstellen",
+    logout: "Abmelden",
+
+    welcome: "Willkommen bei TravelMate!",
+    enterEmail: "E-Mail-Adresse",
+    enterPassword: "Passwort",
+
+    home: "Startseite",
+    travel: "Reise",
+    calculator: "Rechner"
+  },
+
+  en: {
+    settings: "⚙️ Settings",
+    language: "Language",
+
+    currencyTitle: "💱 Currency Converter",
+    amount: "Amount",
+    fromCurrency: "From",
+    toCurrency: "To",
+    convert: "Convert",
+    loading: "Loading exchange rate...",
+    result: "Result appears here",
+    conversionError: "Exchange rate could not be loaded.",
+
+    connectionTitle: "✈️ Connection Calculator",
+    departure: "Departure",
+    arrival: "Arrival",
+    connectionTime: "Connection time",
+    calculate: "Calculate",
+
+    budgetTitle: "💰 Travel Budget",
+    accommodation: "Accommodation",
+    food: "Food",
+    transport: "Transport",
+    other: "Other",
+    total: "Total cost",
+
+    accountTitle: "👤 My Account",
+    notLoggedIn: "Not logged in",
+    login: "Sign in",
+    createAccount: "Create account",
+    logout: "Sign out",
+
+    welcome: "Welcome to TravelMate!",
+    enterEmail: "Email address",
+    enterPassword: "Password",
+
+    home: "Home",
+    travel: "Trip",
+    calculator: "Calculator"
+  }
+
+};
+
+
+function setLanguage(language) {
+
+  localStorage.setItem(
+    "travelmateLanguage",
+    language
+  );
+
+  translatePage(language);
+}
+
+
+function translatePage(language) {
+
+  const t = translations[language];
+
+  /*
+   * Texte anhand ihrer IDs übersetzen.
+   */
+
+  const elements = {
+
+    settingsTitle: t.settings,
+    languageLabel: t.language,
+
+    currencyConverterTitle: t.currencyTitle,
+
+    amountLabel: t.amount,
+
+    connectionTitle: t.connectionTitle,
+
+    departureLabel: t.departure,
+    arrivalLabel: t.arrival,
+    connectionTimeLabel: t.connectionTime,
+
+    budgetTitle: t.budgetTitle,
+
+    accommodationLabel: t.accommodation,
+    foodLabel: t.food,
+    transportLabel: t.transport,
+    otherLabel: t.other,
+    totalLabel: t.total,
+
+    accountTitle: t.accountTitle,
+
+    accountStatus: t.notLoggedIn
+  };
+
+
+  Object.keys(elements).forEach(function(id) {
+
+    const element =
+      document.getElementById(id);
+
+    if (element) {
+
+      element.textContent =
+        elements[id];
+
+    }
+
+  });
+
+
+  /*
+   * Buttons
+   */
+
+  const convertButton =
+    document.querySelector(
+      'button[onclick="convertCurrency()"]'
+    );
+
+  if (convertButton) {
+    convertButton.textContent =
+      t.convert;
+  }
+
+}
+
+
+/*
+ * Sprache beim Start laden
+ */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+    const savedLanguage =
+      localStorage.getItem(
+        "travelmateLanguage"
+      ) || "de";
+
+    const languageSelect =
+      document.getElementById(
+        "languageSelect"
+      );
+
+    if (languageSelect) {
+
+      languageSelect.value =
+        savedLanguage;
+
+    }
+
+    translatePage(savedLanguage);
+
+  }
+);
 }
