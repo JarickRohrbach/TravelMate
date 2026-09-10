@@ -42,22 +42,17 @@
   <option value="">Währungen werden geladen...</option>
 </select>
 
+<select id="toCurrency">
+  <option value="">Währungen werden geladen...</option>
+</select>
 
-      <select id="toCurrency">
-        <option value="IDR">IDR – Indonesische Rupiah</option>
-        <option value="EUR">EUR – Euro</option>
-        <option value="USD">USD – US-Dollar</option>
-        <option value="SGD">SGD – Singapur-Dollar</option>
-      </select>
+<button onclick="convertCurrency()">
+  Umrechnen
+</button>
 
-      <button onclick="convertCurrency()">
-        Umrechnen
-      </button>
-
-      <h3 id="currencyResult">
-        Ergebnis erscheint hier
-      </h3>
-    </section>
+<h3 id="currencyResult">
+  Ergebnis erscheint hier
+</h3>
 
 
     <section class="card">
