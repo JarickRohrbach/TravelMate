@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+  <section class="account-card">
+  <div>
+    <h2>👤 Mein Account</h2>
+    <p id="accountStatus">Noch nicht angemeldet</p>
+  </div>
+
+  <button onclick="openAccount()">
+    Anmelden
+  </button>
+</section>
   <meta charset="UTF-8">
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0">
@@ -120,6 +130,58 @@
   </main>
 
   <script src="script.js"></script>
+<div id="accountModal" class="modal">
 
+  <div class="modal-content">
+
+    <button class="close-button" onclick="closeAccount()">
+      ×
+    </button>
+
+    <h2>👤 TravelMate Account</h2>
+
+    <div id="loginArea">
+
+      <input
+        type="email"
+        id="email"
+        placeholder="E-Mail-Adresse"
+      >
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Passwort"
+      >
+
+      <button onclick="createAccount()">
+        Account erstellen
+      </button>
+
+      <button
+        class="secondary-button"
+        onclick="login()">
+        Anmelden
+      </button>
+
+      <p id="accountMessage"></p>
+
+    </div>
+
+    <div id="loggedInArea" style="display:none;">
+
+      <h3>Willkommen bei TravelMate! ✈️</h3>
+
+      <p id="loggedInEmail"></p>
+
+      <button onclick="logout()">
+        Abmelden
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 </body>
 </html>
