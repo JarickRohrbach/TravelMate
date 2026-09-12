@@ -1959,3 +1959,580 @@ document.addEventListener(
 
   }
 );
+
+/* =========================================================
+   TRAVELMATE – TIMEZONE CALCULATOR
+   ========================================================= */
+
+const travelMateTimezones = [
+  "Pacific/Pago_Pago",
+  "Pacific/Honolulu",
+  "America/Anchorage",
+  "America/Los_Angeles",
+  "America/Denver",
+  "America/Chicago",
+  "America/New_York",
+  "America/Sao_Paulo",
+  "Atlantic/Azores",
+  "UTC",
+  "Europe/London",
+  "Europe/Paris",
+  "Europe/Berlin",
+  "Europe/Helsinki",
+  "Europe/Athens",
+  "Europe/Moscow",
+  "Africa/Cairo",
+  "Africa/Johannesburg",
+  "Africa/Nairobi",
+  "Asia/Dubai",
+  "Asia/Karachi",
+  "Asia/Kolkata",
+  "Asia/Dhaka",
+  "Asia/Bangkok",
+  "Asia/Jakarta",
+  "Asia/Makassar",
+  "Asia/Jayapura",
+  "Asia/Singapore",
+  "Asia/Kuala_Lumpur",
+  "Asia/Manila",
+  "Asia/Hong_Kong",
+  "Asia/Shanghai",
+  "Asia/Taipei",
+  "Asia/Tokyo",
+  "Asia/Seoul",
+  "Australia/Perth",
+  "Australia/Adelaide",
+  "Australia/Sydney",
+  "Pacific/Guam",
+  "Pacific/Auckland"
+];
+
+
+/* =========================================================
+   ZEITZONEN IN DIE AUSWAHL LADEN
+   ========================================================= */
+
+function loadTimezones() {
+
+  const from =
+    document.getElementById("fromTimezone");
+
+  const to =
+    document.getElementById("toTimezone");
+
+  if (!from || !to) return;
+
+
+  from.innerHTML = "";
+  to.innerHTML = "";
+
+
+  travelMateTimezones.forEach(
+    function(timezone) {
+
+      const name =
+        formatTimezoneName(timezone);
+
+
+      const optionFrom =
+        document.createElement("option");
+
+      optionFrom.value =
+        timezone;
+
+      optionFrom.textContent =
+        name;
+
+      from.appendChild(
+        optionFrom
+      );
+
+
+      const optionTo =
+        document.createElement("option");
+
+      optionTo.value =
+        timezone;
+
+      optionTo.textContent =
+        name;
+
+      to.appendChild(
+        optionTo
+      );
+
+    }
+  );
+
+
+  /* Standardauswahl */
+
+  from.value =
+    "Europe/Berlin";
+
+  to.value =
+    "Asia/Jakarta";
+
+}
+
+
+/* =========================================================
+   ZEITZONEN-NAMEN
+   ========================================================= */
+
+function formatTimezoneName(timezone) {
+
+  const parts =
+    timezone.split("/");
+
+  const city =
+    parts[parts.length - 1]
+      .replace(/_/g, " ");
+
+
+  const region =
+    parts.length > 1
+      ? parts[0]
+      : "";
+
+
+  return region +
+    " / " +
+    city;
+
+}
+
+
+/* =========================================================
+   ZEITZONE BERECHNEN
+   ========================================================= */
+
+function calculateTimezone() {
+
+  const dateInput =
+    document.getElementById(
+      "timezoneDate"
+    );
+
+  const timeInput =
+    document.getElementById(
+      "timezoneTime"
+    );
+
+  const fromSelect =
+    document.getElementById(
+      "fromTimezone"
+    );
+
+  const toSelect =
+    document.getElementById(
+      "toTimezone"
+    );
+
+  const result =
+    document.getElementById(
+      "timezoneResult"
+    );
+
+
+  if (
+    !dateInput ||
+    !timeInput ||
+    !fromSelect ||
+    !toSelect ||
+    !result
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+    !dateInput.value ||
+    !timeInput.value
+  ) {
+
+    result.textContent =
+      getLanguage() === "en"
+        ? "Please enter a date and time."
+        : "Bitte Datum und Uhrzeit eingeben.";
+
+    return;
+
+  }
+
+
+  const fromTimezone =
+    fromSelect.value;
+
+  const toTimezone =
+    toSelect.value;
+
+
+  /*
+   * Datum und Uhrzeit aus dem Formular.
+   */
+
+  const localDateTime =
+    `${dateInput.value}T${timeInput.value}:00`;
+
+
+  /*
+   * Wir berechnen zunächst die UTC-Zeit
+   * der Ausgangs-Zeitzone.
+   */
+
+  const utcDate =
+    convertTimezoneToUTC(
+      localDateTime,
+      fromTimezone
+    );
+
+
+  if (!utcDate) {
+
+    result.textContent =
+      getLanguage() === "en"
+        ? "The time could not be calculated."
+        : "Die Zeit konnte nicht berechnet werden.";
+
+    return;
+
+  }
+
+
+  /*
+   * Jetzt wird dieselbe UTC-Zeit
+   * in die Ziel-Zeitzone umgerechnet.
+   */
+
+  const converted =
+    new Intl.DateTimeFormat(
+      getLanguage() === "en"
+        ? "en-US"
+        : "de-DE",
+      {
+        timeZone:
+          toTimezone,
+
+        year:
+          "numeric",
+
+        month:
+          "2-digit",
+
+        day:
+          "2-digit",
+
+        hour:
+          "2-digit",
+
+        minute:
+          "2-digit",
+
+        hour12:
+          false
+
+      }
+    ).format(
+      utcDate
+    );
+
+
+  const fromName =
+    formatTimezoneName(
+      fromTimezone
+    );
+
+
+  const toName =
+    formatTimezoneName(
+      toTimezone
+    );
+
+
+  const language =
+    getLanguage();
+
+
+  if (language === "en") {
+
+    result.innerHTML =
+      `<strong>${converted}</strong>
+       <br>
+       ${toName}
+       <br><br>
+       ${fromName} → ${toName}`;
+
+  } else {
+
+    result.innerHTML =
+      `<strong>${converted}</strong>
+       <br>
+       ${toName}
+       <br><br>
+       ${fromName} → ${toName}`;
+
+  }
+
+}
+
+
+/* =========================================================
+   UTC-BERECHNUNG
+   ========================================================= */
+
+function convertTimezoneToUTC(
+  dateTimeString,
+  timezone
+) {
+
+  const parts =
+    dateTimeString.match(
+      /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})$/
+    );
+
+
+  if (!parts) {
+    return null;
+  }
+
+
+  const year =
+    Number(parts[1]);
+
+  const month =
+    Number(parts[2]);
+
+  const day =
+    Number(parts[3]);
+
+  const hour =
+    Number(parts[4]);
+
+  const minute =
+    Number(parts[5]);
+
+  const second =
+    Number(parts[6]);
+
+
+  /*
+   * Erste Näherung.
+   */
+
+  let utcTimestamp =
+    Date.UTC(
+      year,
+      month - 1,
+      day,
+      hour,
+      minute,
+      second
+    );
+
+
+  /*
+   * Mehrfach korrigieren, damit Sommer-
+   * und Winterzeit berücksichtigt werden.
+   */
+
+  for (
+    let i = 0;
+    i < 3;
+    i++
+  ) {
+
+    const temporaryDate =
+      new Date(
+        utcTimestamp
+      );
+
+
+    const formatter =
+      new Intl.DateTimeFormat(
+        "en-US",
+        {
+          timeZone:
+            timezone,
+
+          year:
+            "numeric",
+
+          month:
+            "2-digit",
+
+          day:
+            "2-digit",
+
+          hour:
+            "2-digit",
+
+          minute:
+            "2-digit",
+
+          second:
+            "2-digit",
+
+          hourCycle:
+            "h23"
+
+        }
+      );
+
+
+    const values =
+      formatter.formatToParts(
+        temporaryDate
+      );
+
+
+    const get =
+      function(type) {
+
+        const part =
+          values.find(
+            p =>
+              p.type === type
+          );
+
+        return part
+          ? Number(part.value)
+          : 0;
+
+      };
+
+
+    const localTimestamp =
+      Date.UTC(
+        get("year"),
+        get("month") - 1,
+        get("day"),
+        get("hour"),
+        get("minute"),
+        get("second")
+      );
+
+
+    const difference =
+      Date.UTC(
+        year,
+        month - 1,
+        day,
+        hour,
+        minute,
+        second
+      ) -
+      localTimestamp;
+
+
+    utcTimestamp +=
+      difference;
+
+  }
+
+
+  return new Date(
+    utcTimestamp
+  );
+
+}
+
+
+/* =========================================================
+   AUTOMATISCH BEIM START LADEN
+   ========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+    loadTimezones();
+
+
+    /*
+     * Heutiges Datum vorausfüllen.
+     */
+
+    const dateInput =
+      document.getElementById(
+        "timezoneDate"
+      );
+
+
+    if (dateInput) {
+
+      const today =
+        new Date();
+
+
+      const year =
+        today.getFullYear();
+
+
+      const month =
+        String(
+          today.getMonth() + 1
+        ).padStart(
+          2,
+          "0"
+        );
+
+
+      const day =
+        String(
+          today.getDate()
+        ).padStart(
+          2,
+          "0"
+        );
+
+
+      dateInput.value =
+        `${year}-${month}-${day}`;
+
+    }
+
+
+    /*
+     * Aktuelle Uhrzeit vorausfüllen.
+     */
+
+    const timeInput =
+      document.getElementById(
+        "timezoneTime"
+      );
+
+
+    if (timeInput) {
+
+      const now =
+        new Date();
+
+
+      const hours =
+        String(
+          now.getHours()
+        ).padStart(
+          2,
+          "0"
+        );
+
+
+      const minutes =
+        String(
+          now.getMinutes()
+        ).padStart(
+          2,
+          "0"
+        );
+
+
+      timeInput.value =
+        `${hours}:${minutes}`;
+
+    }
+
+  }
+);
