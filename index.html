@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>TravelMate</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="travelmate-Icon.png.PNG"
+  >
+
+  <link
+    rel="apple-touch-icon"
+    href="travelmate-Icon.png.PNG"
+  >
+
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+  >
+
+  <meta
+    name="apple-mobile-web-app-title"
+    content="TravelMate"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       ACCOUNT
+       ===================================================== -->
+
+  <section class="account-card">
+
+    <div>
+
+      <h2 id="accountTitle">
+        👤 Mein Account
+      </h2>
+
+      <p id="accountStatus">
+        Noch nicht angemeldet
+      </p>
+
+    </div>
+
+    <button onclick="openAccount()">
+      Anmelden
+    </button>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       SETTINGS
+       ===================================================== -->
+
+  <section class="settings-card">
+
+    <h2 id="settingsTitle">
+      ⚙️ Einstellungen
+    </h2>
+
+    <label
+      for="languageSelect"
+      id="languageLabel"
+    >
+      Sprache
+    </label>
+
+    <select
+      id="languageSelect"
+      onchange="changeLanguage()"
+    >
+
+      <option value="de">
+        🇩🇪 Deutsch
+      </option>
+
+      <option value="en">
+        🇬🇧 English
+      </option>
+
+    </select>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <header>
+
+    <h1>
+      ✈️ TravelMate
+    </h1>
+
+    <p id="subtitle">
+      Deine Reise. Einfacher.
+    </p>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       MAIN
+       ===================================================== -->
+
+  <main>
+
+
+    <!-- ===================================================
+         WÄHRUNGSRECHNER
+         =================================================== -->
+
+    <section class="card">
+
+      <h2 id="currencyTitle">
+        💱 Währungsrechner
+      </h2>
+
+
+      <input
+        type="number"
+        id="amount"
+        placeholder="Betrag eingeben"
+        step="any"
+      >
+
+
+      <select id="fromCurrency">
+
+        <option value="">
+          Währungen werden geladen...
+        </option>
+
+      </select>
+
+
+      <select id="toCurrency">
+
+        <option value="">
+          Währungen werden geladen...
+        </option>
+
+      </select>
+
+
+      <button onclick="convertCurrency()">
+        Umrechnen
+      </button>
+
+
+      <h3 id="currencyResult">
+        Ergebnis erscheint hier
+      </h3>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         ANSCHLUSSRECHNER
+         =================================================== -->
+
+    <section class="card">
+
+      <h2 id="connectionTitle">
+        ✈️ Anschlussrechner
+      </h2>
+
+
+      <label
+        for="arrivalTime"
+        id="arrivalLabel"
+      >
+        Ankunftszeit
+      </label>
+
+
+      <input
+        type="time"
+        id="arrivalTime"
+      >
+
+
+      <label
+        for="departureTime"
+        id="departureLabel"
+      >
+        Abflugzeit
+      </label>
+
+
+      <input
+        type="time"
+        id="departureTime"
+      >
+
+
+      <button onclick="calculateConnection()">
+        Anschluss prüfen
+      </button>
+
+
+      <h3 id="connectionResult">
+        Gib deine Flugzeiten ein
+      </h3>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         ZEITZONENRECHNER
+         =================================================== -->
+
+    <section class="card">
+
+      <h2 id="timezoneTitle">
+        🕐 Zeitzonenrechner
+      </h2>
+
+
+      <label
+        for="timezoneDate"
+        id="timezoneDateLabel"
+      >
+        Datum
+      </label>
+
+
+      <input
+        type="date"
+        id="timezoneDate"
+      >
+
+
+      <label
+        for="timezoneTime"
+        id="timezoneTimeLabel"
+      >
+        Uhrzeit
+      </label>
+
+
+      <input
+        type="time"
+        id="timezoneTime"
+      >
+
+
+      <label
+        for="fromTimezone"
+        id="fromTimezoneLabel"
+      >
+        Ausgangs-Zeitzone
+      </label>
+
+
+      <select id="fromTimezone">
+        <option value="Europe/Berlin">
+          Berlin
+        </option>
+      </select>
+
+
+      <label
+        for="toTimezone"
+        id="toTimezoneLabel"
+      >
+        Ziel-Zeitzone
+      </label>
+
+
+      <select id="toTimezone">
+        <option value="Asia/Jakarta">
+          Jakarta
+        </option>
+      </select>
+
+
+      <button onclick="calculateTimezone()">
+        Zeitzone umrechnen
+      </button>
+
+
+      <h3 id="timezoneResult">
+        Ergebnis erscheint hier
+      </h3>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         REISEBUDGET
+         =================================================== -->
+
+    <section class="card">
+
+      <h2 id="budgetTitle">
+        💰 Reisebudget
+      </h2>
+
+
+      <input
+        type="number"
+        id="flight"
+        placeholder="Flugkosten €"
+        step="any"
+      >
+
+
+      <input
+        type="number"
+        id="hotel"
+        placeholder="Unterkunft €"
+        step="any"
+      >
+
+
+      <input
+        type="number"
+        id="food"
+        placeholder="Essen €"
+        step="any"
+      >
+
+
+      <input
+        type="number"
+        id="transport"
+        placeholder="Transport €"
+        step="any"
+      >
+
+
+      <button onclick="calculateBudget()">
+        Budget berechnen
+      </button>
+
+
+      <h3 id="budgetResult">
+        Dein Reisebudget
+      </h3>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =====================================================
+       ACCOUNT MODAL
+       ===================================================== -->
+
+  <div
+    id="accountModal"
+    class="modal"
+  >
+
+    <div class="modal-content">
+
+
+      <button
+        class="close-button"
+        onclick="closeAccount()"
+      >
+        ×
+      </button>
+
+
+      <h2 id="accountModalTitle">
+        👤 TravelMate Account
+      </h2>
+
+
+      <div id="loginArea">
+
+
+        <input
+          type="email"
+          id="email"
+          placeholder="E-Mail-Adresse"
+        >
+
+
+        <input
+          type="password"
+          id="password"
+          placeholder="Passwort"
+        >
+
+
+        <button onclick="createAccount()">
+          Account erstellen
+        </button>
+
+
+        <button
+          class="secondary-button"
+          onclick="login()"
+        >
+          Anmelden
+        </button>
+
+
+        <p id="accountMessage"></p>
+
+
+      </div>
+
+
+      <div
+        id="loggedInArea"
+        style="display:none;"
+      >
+
+        <h3 id="welcomeMessage">
+          Willkommen bei TravelMate! ✈️
+        </h3>
+
+
+        <p id="loggedInEmail"></p>
+
+
+        <button onclick="logout()">
+          Abmelden
+        </button>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
+
+  <script src="script.js"></script>
+
+
+</body>
+
+</html>
