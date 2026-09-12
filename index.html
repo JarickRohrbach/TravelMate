@@ -92,6 +92,59 @@
       </h3>
     </section>
 
+<section class="card">
+
+  <h2 id="timezoneTitle">
+    🕐 Zeitzonenrechner
+  </h2>
+
+  <label for="timezoneDate" id="timezoneDateLabel">
+    Datum
+  </label>
+
+  <input
+    type="date"
+    id="timezoneDate"
+  >
+
+  <label for="timezoneTime" id="timezoneTimeLabel">
+    Uhrzeit
+  </label>
+
+  <input
+    type="time"
+    id="timezoneTime"
+  >
+
+  <label for="fromTimezone" id="fromTimezoneLabel">
+    Ausgangs-Zeitzone
+  </label>
+
+  <select id="fromTimezone">
+    <option value="Europe/Berlin">
+      🇩🇪 Berlin
+    </option>
+  </select>
+
+  <label for="toTimezone" id="toTimezoneLabel">
+    Ziel-Zeitzone
+  </label>
+
+  <select id="toTimezone">
+    <option value="Asia/Jakarta">
+      🇮🇩 Jakarta
+    </option>
+  </select>
+
+  <button onclick="calculateTimezone()">
+    Zeitzone umrechnen
+  </button>
+
+  <h3 id="timezoneResult">
+    Ergebnis erscheint hier
+  </h3>
+
+</section>
 
     <section class="card">
       <h2>💰 Reisebudget</h2>
