@@ -39,7 +39,65 @@
   >
 
 </head>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
+    const teaser = document.querySelector(".airline-teaser");
+    const modal = document.getElementById("airlineFinderModal");
+    const closeButton = document.querySelector(".airline-close");
+
+    if (!teaser || !modal) {
+        console.error("TravelMate Airline Finder: Elemente nicht gefunden.");
+        return;
+    }
+
+    function openFinder() {
+        modal.classList.add("active");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeFinder() {
+        modal.classList.remove("active");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+    }
+
+    teaser.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        openFinder();
+    });
+
+    teaser.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openFinder();
+        }
+    });
+
+    if (closeButton) {
+        closeButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            closeFinder();
+        });
+    }
+
+    modal.addEventListener("click", function (event) {
+        if (event.target === modal) {
+            closeFinder();
+        }
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            closeFinder();
+        }
+    });
+
+});
+</script>
 
 <body>
 
