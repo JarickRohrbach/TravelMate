@@ -2133,4 +2133,516 @@ document.addEventListener(
         updateAccountView();
 
     }
+);/* =====================================================
+   TRAVELMATE AIRLINE FINDER
+   ===================================================== */
+
+const airlineDatabase = {
+
+    "new-york": [
+        {
+            name: "Singapore Airlines",
+            rating: "4.8",
+            logo: "🇸🇬",
+            tags: ["Premium-Service", "Komfort"]
+        },
+        {
+            name: "Qatar Airways",
+            rating: "4.8",
+            logo: "🇶🇦",
+            tags: ["Preis-Leistung", "Service"]
+        },
+        {
+            name: "Emirates",
+            rating: "4.7",
+            logo: "🇦🇪",
+            tags: ["Komfort", "Entertainment"]
+        }
+    ],
+
+    "london": [
+        {
+            name: "Singapore Airlines",
+            rating: "4.9",
+            logo: "🇸🇬",
+            tags: ["Premium-Service", "Komfort"]
+        },
+        {
+            name: "Qatar Airways",
+            rating: "4.8",
+            logo: "🇶🇦",
+            tags: ["Service", "Preis-Leistung"]
+        },
+        {
+            name: "British Airways",
+            rating: "4.5",
+            logo: "🇬🇧",
+            tags: ["Großes Streckennetz", "Europa"]
+        }
+    ],
+
+    "paris": [
+        {
+            name: "Air France",
+            rating: "4.7",
+            logo: "🇫🇷",
+            tags: ["Europa", "Premium-Service"]
+        },
+        {
+            name: "Qatar Airways",
+            rating: "4.8",
+            logo: "🇶🇦",
+            tags: ["Service", "Komfort"]
+        },
+        {
+            name: "Singapore Airlines",
+            rating: "4.8",
+            logo: "🇸🇬",
+            tags: ["Premium-Service", "Langstrecke"]
+        }
+    ],
+
+    "tokyo": [
+        {
+            name: "ANA",
+            rating: "4.9",
+            logo: "🇯🇵",
+            tags: ["Service", "Beste Gesamtqualität"]
+        },
+        {
+            name: "Japan Airlines",
+            rating: "4.8",
+            logo: "🇯🇵",
+            tags: ["Economy", "Service"]
+        },
+        {
+            name: "Singapore Airlines",
+            rating: "4.8",
+            logo: "🇸🇬",
+            tags: ["Komfort", "Langstrecke"]
+        }
+    ],
+
+    "dubai": [
+        {
+            name: "Emirates",
+            rating: "4.9",
+            logo: "🇦🇪",
+            tags: ["Komfort", "Entertainment"]
+        },
+        {
+            name: "Qatar Airways",
+            rating: "4.8",
+            logo: "🇶🇦",
+            tags: ["Service", "Business Class"]
+        },
+        {
+            name: "Singapore Airlines",
+            rating: "4.8",
+            logo: "🇸🇬",
+            tags: ["Premium-Service", "Komfort"]
+        }
+    ],
+
+    "singapore": [
+        {
+            name: "Singapore Airlines",
+            rating: "4.9",
+            logo: "🇸🇬",
+            tags: ["Premium-Service", "Beste Gesamtqualität"]
+        },
+        {
+            name: "Qatar Airways",
+            rating: "4.8",
+            logo: "🇶🇦",
+            tags: ["Service", "Komfort"]
+        },
+        {
+            name: "Emirates",
+            rating: "4.7",
+            logo: "🇦🇪",
+            tags: ["Entertainment", "Komfort"]
+        }
+    ],
+
+    "sydney": [
+        {
+            name: "Qantas",
+            rating: "4.8",
+            logo: "🇦🇺",
+            tags: ["Australien", "Service"]
+        },
+        {
+            name: "Singapore Airlines",
+            rating: "4.8",
+            logo: "🇸🇬",
+            tags: ["Komfort", "Langstrecke"]
+        },
+        {
+            name: "Qatar Airways",
+            rating: "4.7",
+            logo: "🇶🇦",
+            tags: ["Preis-Leistung", "Service"]
+        }
+    ],
+
+    "toronto": [
+        {
+            name: "Air Canada",
+            rating: "4.6",
+            logo: "🇨🇦",
+            tags: ["Kanada", "Großes Streckennetz"]
+        },
+        {
+            name: "Singapore Airlines",
+            rating: "4.8",
+            logo: "🇸🇬",
+            tags: ["Komfort", "Service"]
+        },
+        {
+            name: "Qatar Airways",
+            rating: "4.8",
+            logo: "🇶🇦",
+            tags: ["Service", "Langstrecke"]
+        }
+    ],
+
+    "bangkok": [
+        {
+            name: "Singapore Airlines",
+            rating: "4.8",
+            logo: "🇸🇬",
+            tags: ["Service", "Komfort"]
+        },
+        {
+            name: "Thai Airways",
+            rating: "4.7",
+            logo: "🇹🇭",
+            tags: ["Thailand", "Service"]
+        },
+        {
+            name: "Qatar Airways",
+            rating: "4.8",
+            logo: "🇶🇦",
+            tags: ["Preis-Leistung", "Komfort"]
+        }
+    ],
+
+    "jakarta": [
+        {
+            name: "Singapore Airlines",
+            rating: "4.8",
+            logo: "🇸🇬",
+            tags: ["Premium-Service", "Komfort"]
+        },
+        {
+            name: "Qatar Airways",
+            rating: "4.8",
+            logo: "🇶🇦",
+            tags: ["Preis-Leistung", "Service"]
+        },
+        {
+            name: "Garuda Indonesia",
+            rating: "4.6",
+            logo: "🇮🇩",
+            tags: ["Indonesien", "Service"]
+        }
+    ],
+
+    "frankfurt": [
+        {
+            name: "Lufthansa",
+            rating: "4.6",
+            logo: "🇩🇪",
+            tags: ["Großes Streckennetz", "Europa"]
+        },
+        {
+            name: "Singapore Airlines",
+            rating: "4.8",
+            logo: "🇸🇬",
+            tags: ["Premium-Service", "Langstrecke"]
+        },
+        {
+            name: "Qatar Airways",
+            rating: "4.8",
+            logo: "🇶🇦",
+            tags: ["Service", "Komfort"]
+        }
+    ]
+
+};
+
+
+/* =====================================================
+   OPEN
+   ===================================================== */
+
+function openAirlineFinder() {
+
+    const modal =
+        document.getElementById(
+            "airlineFinderModal"
+        );
+
+    if (!modal) return;
+
+    modal.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+}
+
+
+/* =====================================================
+   CLOSE
+   ===================================================== */
+
+function closeAirlineFinder() {
+
+    const modal =
+        document.getElementById(
+            "airlineFinderModal"
+        );
+
+    if (!modal) return;
+
+    modal.classList.remove("active");
+
+    document.body.style.overflow = "";
+}
+
+
+/* =====================================================
+   FIND AIRLINES
+   ===================================================== */
+
+function findAirlines() {
+
+    const destination =
+        document.getElementById(
+            "airlineDestination"
+        ).value;
+
+    const priority =
+        document.getElementById(
+            "airlinePriority"
+        ).value;
+
+    const results =
+        airlineDatabase[destination] || [];
+
+    const resultContainer =
+        document.getElementById(
+            "airlineResults"
+        );
+
+    if (!resultContainer) return;
+
+    let sortedResults =
+        [...results];
+
+    /*
+     * Später können wir hier echte
+     * Bewertungsdaten verwenden.
+     */
+
+    if (priority === "economy") {
+
+        sortedResults.sort(
+            (a, b) =>
+                economyScore(b.name) -
+                economyScore(a.name)
+        );
+
+    }
+
+    if (priority === "business") {
+
+        sortedResults.sort(
+            (a, b) =>
+                businessScore(b.name) -
+                businessScore(a.name)
+        );
+
+    }
+
+    if (priority === "comfort") {
+
+        sortedResults.sort(
+            (a, b) =>
+                comfortScore(b.name) -
+                comfortScore(a.name)
+        );
+
+    }
+
+    resultContainer.innerHTML = `
+
+        <h3 class="airline-results-title">
+            Top 3 Airlines
+        </h3>
+
+        ${sortedResults
+            .slice(0, 3)
+            .map(
+                (airline, index) => `
+
+                <div class="airline-result">
+
+                    <div class="airline-rank">
+                        ${index === 0
+                            ? "🥇"
+                            : index === 1
+                            ? "🥈"
+                            : "🥉"
+                        }
+                    </div>
+
+                    <div class="airline-logo">
+                        ${airline.logo}
+                    </div>
+
+                    <div class="airline-info">
+
+                        <div class="airline-name">
+                            ${airline.name}
+
+                            ${
+                                index === 0
+                                    ? `<span class="airline-premium">
+                                        ⭐ Top Pick
+                                      </span>`
+                                    : ""
+                            }
+
+                        </div>
+
+                        <div class="airline-rating">
+                            ⭐ ${airline.rating}/5
+                        </div>
+
+                        <div class="airline-tags">
+
+                            ${airline.tags
+                                .map(
+                                    tag =>
+                                        `<span class="airline-tag">
+                                            ${tag}
+                                        </span>`
+                                )
+                                .join("")
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `
+            )
+            .join("")
+        }
+
+    `;
+}
+
+
+/* =====================================================
+   SIMPLE SCORING
+   ===================================================== */
+
+function airlineBaseScore(name) {
+
+    const scores = {
+
+        "Singapore Airlines": 99,
+        "Qatar Airways": 98,
+        "Emirates": 96,
+        "ANA": 97,
+        "Japan Airlines": 96,
+        "Qantas": 95,
+        "Air France": 94,
+        "Lufthansa": 92,
+        "British Airways": 90,
+        "Thai Airways": 91,
+        "Air Canada": 90,
+        "Garuda Indonesia": 88
+
+    };
+
+    return scores[name] || 85;
+}
+
+
+function economyScore(name) {
+
+    return airlineBaseScore(name) +
+        (
+            name === "Japan Airlines"
+                ? 5
+                : 0
+        );
+}
+
+
+function businessScore(name) {
+
+    return airlineBaseScore(name) +
+        (
+            name === "Qatar Airways"
+                ? 5
+                : 0
+        );
+}
+
+
+function comfortScore(name) {
+
+    return airlineBaseScore(name) +
+        (
+            name === "Singapore Airlines"
+                ? 4
+                : 0
+        );
+}
+
+
+/* =====================================================
+   CLOSE BY CLICKING OUTSIDE
+   ===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const modal =
+            document.getElementById(
+                "airlineFinderModal"
+            );
+
+        if (!modal) return;
+
+        if (
+            event.target === modal
+        ) {
+            closeAirlineFinder();
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ESC TO CLOSE
+   ===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Escape") {
+            closeAirlineFinder();
+        }
+
+    }
 );
