@@ -1459,3 +1459,64 @@ h3 {
     }
 
 }
+/* =========================================================
+   TRAVELMATE COLLAPSIBLE TOOL CARDS
+   Alle Bereiche starten geschlossen.
+   Klick auf den Header öffnet den jeweiligen Bereich.
+   ========================================================= */
+
+/* Inhalt standardmäßig verstecken */
+.tool-card .tool-content {
+    display: none;
+}
+
+/* Nur die angeklickte Karte zeigt ihren Inhalt */
+.tool-card.open .tool-content {
+    display: block;
+}
+
+
+/* Header bleibt immer sichtbar und klickbar */
+.tool-card .card-header {
+    width: 100%;
+    cursor: pointer;
+}
+
+
+/* Pfeil */
+.tool-card .card-arrow {
+    display: inline-block;
+    transition: transform 0.25s ease;
+}
+
+
+/* Pfeil drehen, wenn geöffnet */
+.tool-card.open .card-arrow {
+    transform: rotate(90deg);
+}
+
+
+/* Inhalt mit etwas Abstand */
+.tool-card.open .tool-content {
+    margin-top: 18px;
+}
+
+
+/* =========================================================
+   AIRLINE FINDER NICHT VERÄNDERN
+   ========================================================= */
+
+.airline-finder-card {
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+.tool-card .card-header:focus-visible,
+.airline-finder-card:focus-visible {
+    outline: 3px solid rgba(8, 124, 245, 0.35);
+    outline-offset: 3px;
+}
