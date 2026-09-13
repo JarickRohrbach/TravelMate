@@ -1,0 +1,561 @@
+/* =========================================================
+   TRAVELMATE — MODERN MOBILE UI
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --blue: #1683ff;
+    --blue-dark: #0756b8;
+    --navy: #0b2d55;
+    --text: #10243e;
+    --muted: #718096;
+    --background: #f4f8fc;
+    --card: #ffffff;
+    --border: #e2ebf4;
+    --soft-blue: #eaf5ff;
+    --green: #18b879;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            180deg,
+            #edf7ff 0%,
+            #f6f9fc 32%,
+            #f4f7fb 100%
+        );
+
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+header {
+    position: relative;
+    overflow: hidden;
+
+    margin: 0 0 20px;
+    padding: 34px 22px 30px;
+
+    color: white;
+    text-align: left;
+
+    background:
+        linear-gradient(
+            135deg,
+            #062d5d 0%,
+            #075eb7 48%,
+            #12a8e8 100%
+        );
+
+    border-radius: 0 0 32px 32px;
+
+    box-shadow:
+        0 12px 30px rgba(5, 77, 145, 0.18);
+}
+
+header::after {
+    content: "";
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    right: -80px;
+    top: -90px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.10);
+}
+
+header h1 {
+    position: relative;
+    z-index: 2;
+
+    margin: 0;
+
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+header p {
+    position: relative;
+    z-index: 2;
+
+    margin: 8px 0 0;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    color: rgba(255,255,255,0.82);
+}
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+main {
+    width: 100%;
+    max-width: 650px;
+
+    margin: auto;
+    padding: 0 16px 40px;
+}
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card {
+    position: relative;
+
+    background: var(--card);
+
+    margin: 0 0 18px;
+    padding: 22px;
+
+    border-radius: 28px;
+
+    border: 1px solid rgba(225,234,243,0.9);
+
+    box-shadow:
+        0 8px 30px rgba(22, 61, 100, 0.07);
+}
+
+.card h2 {
+    margin: 0 0 22px;
+
+    color: var(--text);
+
+    font-size: 25px;
+    font-weight: 800;
+
+    letter-spacing: -0.5px;
+}
+
+/* =========================================================
+   LABELS
+   ========================================================= */
+
+label {
+    display: block;
+
+    margin: 16px 0 7px;
+
+    color: #53677f;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   INPUTS / SELECTS
+   ========================================================= */
+
+input,
+select {
+    width: 100%;
+
+    height: 56px;
+
+    padding: 0 17px;
+
+    margin: 0 0 10px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 17px;
+
+    background: #f8fbfe;
+
+    color: var(--text);
+
+    font-family: inherit;
+
+    font-size: 17px;
+    font-weight: 600;
+
+    outline: none;
+
+    appearance: auto;
+
+    transition:
+        border 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+input::placeholder {
+    color: #a5b1bf;
+    font-weight: 500;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--blue);
+
+    background: white;
+
+    box-shadow:
+        0 0 0 4px rgba(22,131,255,0.10);
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+button {
+    width: 100%;
+
+    min-height: 56px;
+
+    margin-top: 10px;
+    padding: 0 20px;
+
+    border: 0;
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0879f9,
+            #166bea
+        );
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 17px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 18px rgba(22,107,234,0.20);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        opacity 0.15s ease;
+}
+
+button:active {
+    transform: scale(0.98);
+
+    box-shadow:
+        0 4px 10px rgba(22,107,234,0.18);
+}
+
+/* =========================================================
+   RESULTS
+   ========================================================= */
+
+h3 {
+    margin: 18px 0 4px;
+
+    padding: 16px;
+
+    border-radius: 18px;
+
+    background: var(--soft-blue);
+
+    color: var(--navy);
+
+    text-align: center;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   ZEITZONENRECHNER
+   ========================================================= */
+
+#timezoneTitle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Die beiden Zeitzonenfelder */
+
+#timezoneFrom,
+#timezoneTo {
+    background: #f7fbff;
+}
+
+/* Ergebnis */
+
+#timezoneResult {
+    margin-top: 18px;
+
+    padding: 20px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #edf8ff,
+            #f6fbff
+        );
+
+    border: 1px solid #d9edff;
+
+    color: var(--navy);
+
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   ACCOUNT
+   ========================================================= */
+
+.account-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 14px;
+
+    margin: 16px;
+
+    padding: 18px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 8px 25px rgba(22,61,100,0.06);
+}
+
+.account-card h2 {
+    margin: 0 0 5px;
+
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.account-card p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+.account-card button {
+    width: auto;
+
+    min-height: 46px;
+
+    margin: 0;
+
+    padding: 0 18px;
+
+    border-radius: 15px;
+
+    font-size: 15px;
+}
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+.settings-card {
+    margin: 16px;
+
+    padding: 22px;
+
+    background: white;
+
+    border-radius: 26px;
+
+    border: 1px solid var(--border);
+
+    box-shadow:
+        0 8px 25px rgba(22,61,100,0.06);
+}
+
+.settings-card h2 {
+    margin-top: 0;
+
+    color: var(--text);
+
+    font-size: 24px;
+    font-weight: 800;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    padding: 20px;
+
+    background: rgba(5, 24, 45, 0.55);
+
+    backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    position: relative;
+
+    max-width: 500px;
+
+    margin: 70px auto;
+
+    padding: 26px;
+
+    background: white;
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.20);
+}
+
+.close-button {
+    position: absolute;
+
+    top: 12px;
+    right: 14px;
+
+    width: 42px;
+    min-height: 42px;
+
+    margin: 0;
+    padding: 0;
+
+    background: #f1f5f9;
+
+    color: #334155;
+
+    border-radius: 50%;
+
+    font-size: 25px;
+
+    box-shadow: none;
+}
+
+.secondary-button {
+    background: #e9f1f8;
+
+    color: var(--navy);
+
+    box-shadow: none;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    header {
+        padding:
+            30px
+            20px
+            28px;
+
+        border-radius:
+            0
+            0
+            28px
+            28px;
+    }
+
+    header h1 {
+        font-size: 30px;
+    }
+
+    main {
+        padding:
+            0
+            12px
+            30px;
+    }
+
+    .card {
+        padding: 20px;
+
+        border-radius: 25px;
+    }
+
+    .card h2 {
+        font-size: 23px;
+    }
+
+    input,
+    select {
+        height: 54px;
+
+        font-size: 16px;
+    }
+
+    button {
+        min-height: 55px;
+
+        border-radius: 17px;
+    }
+
+    .account-card {
+        margin: 12px;
+
+        padding: 16px;
+
+        border-radius: 21px;
+    }
+}
+
+/* =========================================================
+   LARGE SCREENS
+   ========================================================= */
+
+@media (min-width: 800px) {
+
+    main {
+        max-width: 720px;
+    }
+
+    .card {
+        padding: 28px;
+    }
+}
