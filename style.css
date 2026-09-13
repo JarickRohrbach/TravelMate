@@ -1850,4 +1850,296 @@ h3 {
         padding:
             0 16px 19px;
     }
+}/* =========================================================
+   TRAVELMATE – TOOL CARDS LIKE AIRLINE FINDER
+   ========================================================= */
+
+/* Die normalen Kacheln bekommen exakt den Airline-Finder-Look */
+.tool-card {
+    position: relative;
+    overflow: hidden;
+
+    margin: 0 0 18px;
+    padding: 0;
+
+    border: none;
+    border-radius: 25px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #087cf5 0%,
+            #005dcc 100%
+        );
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,104,220,0.24);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/* Großes Flugzeug im Hintergrund */
+.tool-card::after {
+    content: "✈";
+
+    position: absolute;
+
+    right: 4px;
+    bottom: -45px;
+
+    font-size: 145px;
+
+    opacity: 0.10;
+
+    transform: rotate(-12deg);
+
+    pointer-events: none;
+}
+
+
+/* Hover */
+.tool-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 21px 50px
+        rgba(0,104,220,0.31);
+}
+
+
+/* =========================================================
+   KACHEL-HEADER
+   ========================================================= */
+
+.tool-card .card-header {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    min-height: 91px;
+
+    gap: 15px;
+
+    padding: 18px 20px;
+
+    margin: 0;
+
+    border: none;
+    border-radius: 25px;
+
+    background: transparent;
+
+    color: white;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   ICON
+   ========================================================= */
+
+.tool-card .tool-icon {
+    position: relative;
+    z-index: 3;
+
+    width: 54px;
+    height: 54px;
+
+    min-width: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 17px;
+
+    background:
+        rgba(255,255,255,0.16);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.15);
+
+    font-size: 27px;
+
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   TEXT
+   ========================================================= */
+
+.tool-card .tool-info {
+    position: relative;
+    z-index: 3;
+
+    flex: 1;
+
+    min-width: 0;
+}
+
+.tool-card .tool-info h2 {
+    margin:
+        0 0 5px;
+
+    color: white;
+
+    font-size: 19px;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+}
+
+.tool-card .tool-info p {
+    margin: 0;
+
+    color:
+        rgba(255,255,255,0.88);
+
+    font-size: 13px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   PFEIL
+   ========================================================= */
+
+.tool-card .card-arrow {
+    position: relative;
+    z-index: 3;
+
+    font-size: 27px;
+
+    font-weight: 700;
+
+    color: white;
+
+    flex-shrink: 0;
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+/* Beim Öffnen drehen */
+.tool-card.open .card-arrow {
+    transform: rotate(90deg);
+}
+
+
+/* =========================================================
+   INHALT
+   ========================================================= */
+
+/* geschlossen */
+.tool-card .tool-content {
+    display: none;
+
+    position: relative;
+    z-index: 3;
+
+    padding:
+        0 20px 21px;
+}
+
+
+/* geöffnet */
+.tool-card.open .tool-content {
+    display: block;
+}
+
+
+/* =========================================================
+   ACCOUNT – ebenfalls gleicher Kachel-Look
+   ========================================================= */
+
+.tool-card.account-card {
+    margin:
+        0 0 18px;
+
+    padding: 0;
+}
+
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+.tool-card#settingsCard {
+    margin:
+        0 0 18px;
+
+    padding: 0;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .tool-card {
+        border-radius: 24px;
+    }
+
+    .tool-card .card-header {
+        min-height: 86px;
+
+        padding:
+            18px 16px;
+
+        gap: 12px;
+
+        border-radius: 24px;
+    }
+
+    .tool-card .tool-icon {
+        width: 50px;
+        height: 50px;
+
+        min-width: 50px;
+
+        border-radius: 16px;
+
+        font-size: 25px;
+    }
+
+    .tool-card .tool-info h2 {
+        font-size: 17px;
+    }
+
+    .tool-card .tool-info p {
+        font-size: 12px;
+    }
+
+    .tool-card .card-arrow {
+        font-size: 26px;
+    }
+
+    .tool-card .tool-content {
+        padding:
+            0 16px 19px;
+    }
 }
