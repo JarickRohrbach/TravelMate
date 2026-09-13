@@ -3112,3 +3112,938 @@ document.addEventListener(
 
     }
 );
+/* =========================================================
+   TRAVELMATE - FINAL TRANSLATION FIX
+   Übersetzt wirklich ALLE sichtbaren Texte
+   passend zur aktuellen index.html
+   ========================================================= */
+
+(function () {
+
+    const TM_TRANSLATIONS = {
+
+        de: {
+            subtitle: "Deine Reise. Einfacher.",
+
+            accountTitle: "👤 Mein Account",
+            accountStatus: "Noch nicht angemeldet",
+            login: "Anmelden",
+            createAccount: "Account erstellen",
+            logout: "Abmelden",
+            email: "E-Mail-Adresse",
+            password: "Passwort",
+            welcome: "Willkommen bei TravelMate! ✈️",
+
+            settings: "Einstellungen",
+            settingsDescription:
+                "Sprache und App-Einstellungen",
+            language: "Sprache",
+
+            currency: "Währungsrechner",
+            currencyDescription:
+                "Währungen weltweit schnell umrechnen",
+            amount: "Betrag eingeben",
+            loadingCurrencies:
+                "Währungen werden geladen...",
+            convert: "Umrechnen",
+            currencyResult:
+                "Ergebnis erscheint hier",
+
+            connection: "Anschlussrechner",
+            connectionDescription:
+                "Prüfe deine Umsteigezeit zwischen Flügen",
+            arrival: "Ankunftszeit",
+            departure: "Abflugzeit",
+            checkConnection:
+                "Anschluss prüfen",
+            enterTimes:
+                "Gib deine Flugzeiten ein",
+
+            timezone: "Zeitzonenrechner",
+            timezoneDescription:
+                "Uhrzeiten weltweit vergleichen",
+            timezoneDate: "Datum",
+            timezoneTime: "Uhrzeit",
+            fromTimezone:
+                "Ausgangs-Zeitzone",
+            toTimezone:
+                "Ziel-Zeitzone",
+            convertTimezone:
+                "Zeitzone umrechnen",
+            timezoneResult:
+                "Ergebnis erscheint hier",
+
+            budget: "Reisebudget",
+            budgetDescription:
+                "Plane und berechne deine Reisekosten",
+            flight: "Flugkosten €",
+            hotel: "Unterkunft €",
+            food: "Essen €",
+            transport: "Transport €",
+            calculateBudget:
+                "Budget berechnen",
+            budgetResult:
+                "Dein Reisebudget",
+
+            airlineFinder:
+                "Airline Finder",
+            airlineDescription:
+                "Finde die besten Airlines für dein Reiseziel.",
+            airlineDestination:
+                "Reiseziel",
+            airlinePriority:
+                "Priorität",
+            airlineSearch:
+                "✈️ Airlines finden",
+
+            bestOverall:
+                "⭐ Beste Gesamtqualität",
+            bestEconomy:
+                "💰 Economy / Preis-Leistung",
+            bestBusiness:
+                "💎 Business Class",
+            bestComfort:
+                "🛋️ Komfort",
+
+            close:
+                "Schließen"
+        },
+
+        en: {
+            subtitle:
+                "Your journey. Made easier.",
+
+            accountTitle:
+                "👤 My Account",
+            accountStatus:
+                "Not logged in",
+            login:
+                "Sign in",
+            createAccount:
+                "Create account",
+            logout:
+                "Sign out",
+            email:
+                "Email address",
+            password:
+                "Password",
+            welcome:
+                "Welcome to TravelMate! ✈️",
+
+            settings:
+                "Settings",
+            settingsDescription:
+                "Language and app settings",
+            language:
+                "Language",
+
+            currency:
+                "Currency Converter",
+            currencyDescription:
+                "Convert currencies worldwide quickly",
+            amount:
+                "Enter amount",
+            loadingCurrencies:
+                "Loading currencies...",
+            convert:
+                "Convert",
+            currencyResult:
+                "Result appears here",
+
+            connection:
+                "Connection Calculator",
+            connectionDescription:
+                "Check your connection time between flights",
+            arrival:
+                "Arrival time",
+            departure:
+                "Departure time",
+            checkConnection:
+                "Check connection",
+            enterTimes:
+                "Enter your flight times",
+
+            timezone:
+                "Time Zone Converter",
+            timezoneDescription:
+                "Compare times around the world",
+            timezoneDate:
+                "Date",
+            timezoneTime:
+                "Time",
+            fromTimezone:
+                "From time zone",
+            toTimezone:
+                "To time zone",
+            convertTimezone:
+                "Convert time zone",
+            timezoneResult:
+                "Result appears here",
+
+            budget:
+                "Travel Budget",
+            budgetDescription:
+                "Plan and calculate your travel costs",
+            flight:
+                "Flight cost €",
+            hotel:
+                "Accommodation €",
+            food:
+                "Food €",
+            transport:
+                "Transport €",
+            calculateBudget:
+                "Calculate budget",
+            budgetResult:
+                "Your travel budget",
+
+            airlineFinder:
+                "Airline Finder",
+            airlineDescription:
+                "Find the best airlines for your destination.",
+            airlineDestination:
+                "Destination",
+            airlinePriority:
+                "Priority",
+            airlineSearch:
+                "✈️ Find Airlines",
+
+            bestOverall:
+                "⭐ Best Overall",
+            bestEconomy:
+                "💰 Economy / Best Value",
+            bestBusiness:
+                "💎 Business Class",
+            bestComfort:
+                "🛋️ Comfort",
+
+            close:
+                "Close"
+        }
+    };
+
+
+    /* =====================================================
+       HELPER
+       ===================================================== */
+
+    function tmLang() {
+
+        return localStorage.getItem(
+            "travelmateLanguage"
+        ) === "en"
+            ? "en"
+            : "de";
+    }
+
+
+    function tmT() {
+
+        return TM_TRANSLATIONS[
+            tmLang()
+        ];
+    }
+
+
+    function tmText(
+        selector,
+        text
+    ) {
+
+        const element =
+            document.querySelector(
+                selector
+            );
+
+        if (element) {
+            element.textContent = text;
+        }
+    }
+
+
+    function tmPlaceholder(
+        selector,
+        text
+    ) {
+
+        const element =
+            document.querySelector(
+                selector
+            );
+
+        if (element) {
+            element.placeholder = text;
+        }
+    }
+
+
+    function tmButton(
+        selector,
+        text
+    ) {
+
+        const button =
+            document.querySelector(
+                selector
+            );
+
+        if (button) {
+            button.textContent = text;
+        }
+    }
+
+
+    /* =====================================================
+       TRANSLATE EVERYTHING
+       ===================================================== */
+
+    function translateEverything() {
+
+        const t = tmT();
+
+
+        /* ---------------------------------------------
+           HEADER
+           --------------------------------------------- */
+
+        tmText(
+            "#subtitle",
+            t.subtitle
+        );
+
+
+        /* ---------------------------------------------
+           ACCOUNT CARD
+           --------------------------------------------- */
+
+        tmText(
+            "#accountTitle",
+            t.accountTitle
+        );
+
+        tmText(
+            "#accountStatus",
+            t.accountStatus
+        );
+
+        tmButton(
+            'button[onclick="openAccount()"]',
+            t.login
+        );
+
+
+        /* ---------------------------------------------
+           SETTINGS
+           --------------------------------------------- */
+
+        tmText(
+            "#settingsTitle",
+            t.settings
+        );
+
+        const settingsCard =
+            document.querySelector(
+                "#settingsCard"
+            );
+
+        if (settingsCard) {
+
+            const description =
+                settingsCard.querySelector(
+                    ".tool-description"
+                );
+
+            if (description) {
+                description.textContent =
+                    t.settingsDescription;
+            }
+        }
+
+
+        tmText(
+            "#languageLabel",
+            t.language
+        );
+
+
+        /* ---------------------------------------------
+           CURRENCY CARD
+           --------------------------------------------- */
+
+        tmText(
+            "#currencyTitle",
+            `💱 ${t.currency}`
+        );
+
+
+        const currencyCard =
+            document.querySelector(
+                "#currencyCard"
+            );
+
+        if (currencyCard) {
+
+            const description =
+                currencyCard.querySelector(
+                    ".tool-description"
+                );
+
+            if (description) {
+
+                description.textContent =
+                    t.currencyDescription;
+            }
+        }
+
+
+        tmPlaceholder(
+            "#amount",
+            t.amount
+        );
+
+
+        tmButton(
+            'button[onclick="convertCurrency()"]',
+            t.convert
+        );
+
+
+        const currencyResult =
+            document.querySelector(
+                "#currencyResult"
+            );
+
+        if (
+            currencyResult &&
+            !currencyResult.dataset.calculated
+        ) {
+
+            currencyResult.textContent =
+                t.currencyResult;
+        }
+
+
+        /* ---------------------------------------------
+           CONNECTION CARD
+           --------------------------------------------- */
+
+        tmText(
+            "#connectionTitle",
+            `✈️ ${t.connection}`
+        );
+
+
+        const connectionCard =
+            document.querySelector(
+                "#connectionCard"
+            );
+
+        if (connectionCard) {
+
+            const description =
+                connectionCard.querySelector(
+                    ".tool-description"
+                );
+
+            if (description) {
+
+                description.textContent =
+                    t.connectionDescription;
+            }
+        }
+
+
+        tmText(
+            "#arrivalLabel",
+            t.arrival
+        );
+
+        tmText(
+            "#departureLabel",
+            t.departure
+        );
+
+
+        tmButton(
+            'button[onclick="calculateConnection()"]',
+            t.checkConnection
+        );
+
+
+        const connectionResult =
+            document.querySelector(
+                "#connectionResult"
+            );
+
+        if (
+            connectionResult &&
+            !connectionResult.dataset.calculated
+        ) {
+
+            connectionResult.textContent =
+                t.enterTimes;
+        }
+
+
+        /* ---------------------------------------------
+           TIME ZONE CARD
+           --------------------------------------------- */
+
+        tmText(
+            "#timezoneTitle",
+            `🕐 ${t.timezone}`
+        );
+
+
+        const timezoneCard =
+            document.querySelector(
+                "#timezoneCard"
+            );
+
+        if (timezoneCard) {
+
+            const description =
+                timezoneCard.querySelector(
+                    ".tool-description"
+                );
+
+            if (description) {
+
+                description.textContent =
+                    t.timezoneDescription;
+            }
+        }
+
+
+        tmText(
+            "#timezoneDateLabel",
+            t.timezoneDate
+        );
+
+        tmText(
+            "#timezoneTimeLabel",
+            t.timezoneTime
+        );
+
+        tmText(
+            "#fromTimezoneLabel",
+            t.fromTimezone
+        );
+
+        tmText(
+            "#toTimezoneLabel",
+            t.toTimezone
+        );
+
+
+        tmButton(
+            'button[onclick="calculateTimezone()"]',
+            t.convertTimezone
+        );
+
+
+        const timezoneResult =
+            document.querySelector(
+                "#timezoneResult"
+            );
+
+        if (
+            timezoneResult &&
+            !timezoneResult.dataset.calculated
+        ) {
+
+            timezoneResult.textContent =
+                t.timezoneResult;
+        }
+
+
+        /* ---------------------------------------------
+           BUDGET CARD
+           --------------------------------------------- */
+
+        tmText(
+            "#budgetTitle",
+            `💰 ${t.budget}`
+        );
+
+
+        const budgetCard =
+            document.querySelector(
+                "#budgetCard"
+            );
+
+        if (budgetCard) {
+
+            const description =
+                budgetCard.querySelector(
+                    ".tool-description"
+                );
+
+            if (description) {
+
+                description.textContent =
+                    t.budgetDescription;
+            }
+        }
+
+
+        tmPlaceholder(
+            "#flight",
+            t.flight
+        );
+
+        tmPlaceholder(
+            "#hotel",
+            t.hotel
+        );
+
+        tmPlaceholder(
+            "#food",
+            t.food
+        );
+
+        tmPlaceholder(
+            "#transport",
+            t.transport
+        );
+
+
+        tmButton(
+            'button[onclick="calculateBudget()"]',
+            t.calculateBudget
+        );
+
+
+        const budgetResult =
+            document.querySelector(
+                "#budgetResult"
+            );
+
+        if (
+            budgetResult &&
+            !budgetResult.dataset.calculated
+        ) {
+
+            budgetResult.textContent =
+                t.budgetResult;
+        }
+
+
+        /* ---------------------------------------------
+           AIRLINE FINDER
+           --------------------------------------------- */
+
+        tmText(
+            ".airline-finder-text h2",
+            t.airlineFinder
+        );
+
+        tmText(
+            ".airline-finder-text p",
+            t.airlineDescription
+        );
+
+
+        /* Airline Finder modal */
+
+        const airlineModal =
+            document.querySelector(
+                "#airlineFinderModal"
+            );
+
+        if (airlineModal) {
+
+            const title =
+                airlineModal.querySelector(
+                    ".modal-content h2"
+                );
+
+            if (title) {
+
+                title.textContent =
+                    `✈️ ${t.airlineFinder}`;
+            }
+
+
+            const subtitle =
+                airlineModal.querySelector(
+                    ".airline-modal-subtitle"
+                );
+
+            if (subtitle) {
+
+                subtitle.textContent =
+                    t.airlineDescription;
+            }
+
+
+            const labels =
+                airlineModal.querySelectorAll(
+                    "label"
+                );
+
+
+            if (labels[0]) {
+
+                labels[0].textContent =
+                    t.airlineDestination;
+            }
+
+
+            if (labels[1]) {
+
+                labels[1].textContent =
+                    t.airlinePriority;
+            }
+
+
+            tmButton(
+                'button[onclick="findAirlines()"]',
+                t.airlineSearch
+            );
+
+
+            /* Priority dropdown */
+
+            const priority =
+                document.querySelector(
+                    "#airlinePriority"
+                );
+
+            if (priority) {
+
+                const overall =
+                    priority.querySelector(
+                        'option[value="overall"]'
+                    );
+
+                const economy =
+                    priority.querySelector(
+                        'option[value="economy"]'
+                    );
+
+                const business =
+                    priority.querySelector(
+                        'option[value="business"]'
+                    );
+
+                const comfort =
+                    priority.querySelector(
+                        'option[value="comfort"]'
+                    );
+
+
+                if (overall) {
+
+                    overall.textContent =
+                        t.bestOverall;
+                }
+
+
+                if (economy) {
+
+                    economy.textContent =
+                        t.bestEconomy;
+                }
+
+
+                if (business) {
+
+                    business.textContent =
+                        t.bestBusiness;
+                }
+
+
+                if (comfort) {
+
+                    comfort.textContent =
+                        t.bestComfort;
+                }
+            }
+        }
+
+
+        /* ---------------------------------------------
+           ACCOUNT MODAL
+           --------------------------------------------- */
+
+        tmText(
+            "#accountModalTitle",
+            `👤 TravelMate Account`
+        );
+
+
+        tmPlaceholder(
+            "#email",
+            t.email
+        );
+
+        tmPlaceholder(
+            "#password",
+            t.password
+        );
+
+
+        tmButton(
+            'button[onclick="createAccount()"]',
+            t.createAccount
+        );
+
+
+        tmButton(
+            'button[onclick="login()"]',
+            t.login
+        );
+
+
+        tmButton(
+            'button[onclick="logout()"]',
+            t.logout
+        );
+
+
+        tmText(
+            "#welcomeMessage",
+            t.welcome
+        );
+
+
+        const closeButtons =
+            document.querySelectorAll(
+                "#accountModal .close-button, #airlineFinderModal .close-button"
+            );
+
+
+        closeButtons.forEach(
+            button => {
+
+                button.setAttribute(
+                    "aria-label",
+                    t.close
+                );
+            }
+        );
+    }
+
+
+    /* =====================================================
+       LANGUAGE CHANGE
+       ===================================================== */
+
+    const oldChangeLanguage =
+        window.changeLanguage;
+
+
+    window.changeLanguage =
+        function () {
+
+            const select =
+                document.querySelector(
+                    "#languageSelect"
+                );
+
+
+            if (!select) {
+                return;
+            }
+
+
+            const language =
+                select.value === "en"
+                    ? "en"
+                    : "de";
+
+
+            localStorage.setItem(
+                "travelmateLanguage",
+                language
+            );
+
+
+            /*
+             * Erst das vorhandene TravelMate-System
+             * ausführen.
+             */
+            if (
+                typeof oldChangeLanguage ===
+                "function"
+            ) {
+
+                try {
+                    oldChangeLanguage();
+                }
+
+                catch (error) {
+
+                    console.warn(
+                        "Original language function:",
+                        error
+                    );
+                }
+            }
+
+
+            /*
+             * Danach ALLE Texte aus unserem
+             * vollständigen Übersetzungssystem
+             * setzen.
+             */
+            setTimeout(
+                function () {
+
+                    translateEverything();
+
+                },
+                0
+            );
+        };
+
+
+    /* =====================================================
+       INITIAL TRANSLATION
+       ===================================================== */
+
+    function initializeTranslation() {
+
+        /*
+         * Warten, bis das komplette HTML vorhanden ist.
+         */
+
+        translateEverything();
+
+
+        /*
+         * Falls das bestehende Script
+         * anschließend noch Texte setzt,
+         * nochmal übersetzen.
+         */
+
+        setTimeout(
+            translateEverything,
+            100
+        );
+
+        setTimeout(
+            translateEverything,
+            500
+        );
+    }
+
+
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeTranslation
+        );
+
+    } else {
+
+        initializeTranslation();
+    }
+
+
+})();
