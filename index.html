@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="TravelMate – Your journey. Made easier."
+    >
+
+    <title>TravelMate ✈️</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+
+<!-- =====================================================
+     TRAVELMATE
+     ===================================================== -->
+
+<header class="app-header">
+
+    <div class="header-content">
+
+        <div class="brand">
+            <div class="brand-icon">✈️</div>
+
+            <div>
+                <h1>TravelMate</h1>
+                <p data-i18n="subtitle">
+                    Deine Reise. Einfacher.
+                </p>
+            </div>
+        </div>
+
+        <button
+            class="account-button"
+            onclick="openAccount()"
+            aria-label="Account"
+        >
+            👤
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="app-container">
+
+
+<!-- =====================================================
+     ACCOUNT
+     ===================================================== -->
+
+<section
+    class="tool-card account-card"
+    id="accountCard"
+>
+
+    <button
+        class="card-header"
+        onclick="toggleTool('accountCard')"
+    >
+
+        <div class="tool-icon">
+            👤
+        </div>
+
+        <div class="tool-info">
+
+            <h2 data-i18n="accountTitle">
+                Mein Account
+            </h2>
+
+            <p
+                class="tool-description"
+                id="accountStatus"
+                data-i18n="accountStatus"
+            >
+                Noch nicht angemeldet
+            </p>
+
+        </div>
+
+        <span class="card-arrow">
+            ›
+        </span>
+
+    </button>
+
+
+    <div class="tool-content">
+
+        <div
+            id="loginArea"
+            class="account-form"
+        >
+
+            <label data-i18n="email">
+                E-Mail-Adresse
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                autocomplete="email"
+                placeholder="E-Mail-Adresse"
+            >
+
+
+            <label data-i18n="password">
+                Passwort
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                autocomplete="current-password"
+                placeholder="Passwort"
+            >
+
+
+            <div class="button-row">
+
+                <button
+                    class="primary-button"
+                    onclick="login()"
+                    data-i18n="login"
+                >
+                    Anmelden
+                </button>
+
+                <button
+                    class="secondary-button"
+                    onclick="createAccount()"
+                    data-i18n="createAccount"
+                >
+                    Account erstellen
+                </button>
+
+            </div>
+
+
+            <p class="demo-hint">
+                Demo:
+                demo@travelmate.app /
+                travelmate123
+            </p>
+
+            <p
+                id="accountMessage"
+                class="message"
+            ></p>
+
+        </div>
+
+
+        <div
+            id="loggedInArea"
+            class="account-logged"
+            hidden
+        >
+
+            <div class="logged-icon">
+                ✓
+            </div>
+
+            <p
+                data-i18n="loggedInAs"
+            >
+                Angemeldet als
+            </p>
+
+            <strong id="loggedInEmail"></strong>
+
+            <button
+                class="secondary-button"
+                onclick="logout()"
+                data-i18n="logout"
+            >
+                Abmelden
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SETTINGS
+     ===================================================== -->
+
+<section
+    class="tool-card"
+    id="settingsCard"
+>
+
+    <button
+        class="card-header"
+        onclick="toggleTool('settingsCard')"
+    >
+
+        <div class="tool-icon">
+            ⚙️
+        </div>
+
+        <div class="tool-info">
+
+            <h2 data-i18n="settings">
+                Einstellungen
+            </h2>
+
+            <p
+                class="tool-description"
+                data-i18n="settingsDescription"
+            >
+                Sprache und App-Einstellungen
+            </p>
+
+        </div>
+
+        <span class="card-arrow">
+            ›
+        </span>
+
+    </button>
+
+
+    <div class="tool-content">
+
+        <div class="setting-row">
+
+            <div>
+
+                <strong data-i18n="language">
+                    Sprache
+                </strong>
+
+                <p>
+                    Deutsch / English
+                </p>
+
+            </div>
+
+            <select
+                id="languageSelect"
+                onchange="changeLanguage()"
+            >
+
+                <option value="de">
+                    🇩🇪 Deutsch
+                </option>
+
+                <option value="en">
+                    🇬🇧 English
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CURRENCY CONVERTER
+     ===================================================== -->
+
+<section
+    class="tool-card"
+    id="currencyCard"
+>
+
+    <button
+        class="card-header"
+        onclick="toggleTool('currencyCard')"
+    >
+
+        <div class="tool-icon">
+            💱
+        </div>
+
+        <div class="tool-info">
+
+            <h2 data-i18n="currency">
+                Währungsrechner
+            </h2>
+
+            <p
+                class="tool-description"
+                data-i18n="currencyDescription"
+            >
+                Währungen weltweit schnell umrechnen
+            </p>
+
+        </div>
+
+        <span class="card-arrow">
+            ›
+        </span>
+
+    </button>
+
+
+    <div class="tool-content">
+
+        <label data-i18n="amount">
+            Betrag
+        </label>
+
+        <input
+            type="number"
+            id="amount"
+            min="0"
+            step="any"
+            placeholder="Betrag eingeben"
+        >
+
+
+        <div class="currency-grid">
+
+            <div>
+
+                <label>
+                    From
+                </label>
+
+                <select
+                    id="fromCurrency"
+                >
+
+                    <option>
+                        Loading...
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="swap-icon">
+                ⇄
+            </div>
+
+
+            <div>
+
+                <label>
+                    To
+                </label>
+
+                <select
+                    id="toCurrency"
+                >
+
+                    <option>
+                        Loading...
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary-button full-width"
+            onclick="convertCurrency()"
+            data-i18n="convert"
+        >
+            Umrechnen
+        </button>
+
+
+        <div
+            id="currencyResult"
+            class="result-box"
+            data-i18n="currencyResult"
+        >
+            Ergebnis erscheint hier
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONNECTION CALCULATOR
+     ===================================================== -->
+
+<section
+    class="tool-card"
+    id="connectionCard"
+>
+
+    <button
+        class="card-header"
+        onclick="toggleTool('connectionCard')"
+    >
+
+        <div class="tool-icon">
+            ✈️
+        </div>
+
+        <div class="tool-info">
+
+            <h2 data-i18n="connection">
+                Anschlussrechner
+            </h2>
+
+            <p
+                class="tool-description"
+                data-i18n="connectionDescription"
+            >
+                Prüfe deine Umsteigezeit zwischen Flügen
+            </p>
+
+        </div>
+
+        <span class="card-arrow">
+            ›
+        </span>
+
+    </button>
+
+
+    <div class="tool-content">
+
+        <div class="input-grid">
+
+            <div>
+
+                <label data-i18n="arrival">
+                    Ankunftszeit
+                </label>
+
+                <input
+                    type="time"
+                    id="arrivalTime"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label data-i18n="departure">
+                    Abflugzeit
+                </label>
+
+                <input
+                    type="time"
+                    id="departureTime"
+                >
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary-button full-width"
+            onclick="calculateConnection()"
+            data-i18n="checkConnection"
+        >
+            Anschluss prüfen
+        </button>
+
+
+        <div
+            id="connectionResult"
+            class="result-box"
+        >
+            Gib deine Flugzeiten ein
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TIMEZONE CONVERTER
+     ===================================================== -->
+
+<section
+    class="tool-card"
+    id="timezoneCard"
+>
+
+    <button
+        class="card-header"
+        onclick="toggleTool('timezoneCard')"
+    >
+
+        <div class="tool-icon">
+            🕐
+        </div>
+
+        <div class="tool-info">
+
+            <h2 data-i18n="timezone">
+                Zeitzonenrechner
+            </h2>
+
+            <p
+                class="tool-description"
+                data-i18n="timezoneDescription"
+            >
+                Uhrzeiten weltweit vergleichen
+            </p>
+
+        </div>
+
+        <span class="card-arrow">
+            ›
+        </span>
+
+    </button>
+
+
+    <div class="tool-content">
+
+        <label data-i18n="timezoneDate">
+            Datum
+        </label>
+
+        <input
+            type="date"
+            id="timezoneDate"
+        >
+
+
+        <label data-i18n="timezoneTime">
+            Uhrzeit
+        </label>
+
+        <input
+            type="time"
+            id="timezoneTime"
+        >
+
+
+        <div class="input-grid">
+
+            <div>
+
+                <label data-i18n="fromTimezone">
+                    Ausgangs-Zeitzone
+                </label>
+
+                <select
+                    id="fromTimezone"
+                ></select>
+
+            </div>
+
+
+            <div>
+
+                <label data-i18n="toTimezone">
+                    Ziel-Zeitzone
+                </label>
+
+                <select
+                    id="toTimezone"
+                ></select>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary-button full-width"
+            onclick="calculateTimezone()"
+            data-i18n="convertTimezone"
+        >
+            Zeitzone umrechnen
+        </button>
+
+
+        <div
+            id="timezoneResult"
+            class="result-box"
+        >
+            Ergebnis erscheint hier
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TRAVEL BUDGET
+     ===================================================== -->
+
+<section
+    class="tool-card"
+    id="budgetCard"
+>
+
+    <button
+        class="card-header"
+        onclick="toggleTool('budgetCard')"
+    >
+
+        <div class="tool-icon">
+            💰
+        </div>
+
+        <div class="tool-info">
+
+            <h2 data-i18n="budget">
+                Reisebudget
+            </h2>
+
+            <p
+                class="tool-description"
+                data-i18n="budgetDescription"
+            >
+                Plane und berechne deine Reisekosten
+            </p>
+
+        </div>
+
+        <span class="card-arrow">
+            ›
+        </span>
+
+    </button>
+
+
+    <div class="tool-content">
+
+        <label data-i18n="flight">
+            Flugkosten €
+        </label>
+
+        <input
+            type="number"
+            id="flight"
+            min="0"
+            step="0.01"
+        >
+
+
+        <label data-i18n="hotel">
+            Unterkunft €
+        </label>
+
+        <input
+            type="number"
+            id="hotel"
+            min="0"
+            step="0.01"
+        >
+
+
+        <label data-i18n="food">
+            Essen €
+        </label>
+
+        <input
+            type="number"
+            id="food"
+            min="0"
+            step="0.01"
+        >
+
+
+        <label data-i18n="transport">
+            Transport €
+        </label>
+
+        <input
+            type="number"
+            id="transport"
+            min="0"
+            step="0.01"
+        >
+
+
+        <button
+            class="primary-button full-width"
+            onclick="calculateBudget()"
+            data-i18n="calculateBudget"
+        >
+            Budget berechnen
+        </button>
+
+
+        <div
+            id="budgetResult"
+            class="result-box"
+        >
+            Dein Reisebudget
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     AIRLINE FINDER TEASER
+     ===================================================== -->
+
+<section
+    class="airline-finder-card"
+    onclick="openAirlineFinder()"
+    tabindex="0"
+    role="button"
+>
+
+    <div class="airline-finder-icon">
+        ✈️
+    </div>
+
+    <div class="airline-finder-text">
+
+        <h2 data-i18n="airlineFinder">
+            Airline Finder
+        </h2>
+
+        <p data-i18n="airlineDescription">
+            Finde die besten Airlines für dein Reiseziel.
+        </p>
+
+    </div>
+
+    <span class="airline-arrow">
+        →
+    </span>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     AIRLINE FINDER MODAL
+     ===================================================== -->
+
+<div
+    id="airlineFinderModal"
+    class="modal"
+    aria-hidden="true"
+>
+
+    <div class="modal-content airline-modal">
+
+        <button
+            class="modal-close"
+            onclick="closeAirlineFinder()"
+            aria-label="Close"
+        >
+            ×
+        </button>
+
+
+        <div class="modal-icon">
+            ✈️
+        </div>
+
+
+        <h2 data-i18n="airlineFinder">
+            Airline Finder
+        </h2>
+
+        <p
+            class="airline-modal-subtitle"
+            data-i18n="airlineDescription"
+        >
+            Finde die besten Airlines für dein Reiseziel.
+        </p>
+
+
+        <label data-i18n="airlineDestination">
+            Reiseziel
+        </label>
+
+        <select
+            id="airlineDestination"
+        >
+
+            <option value="new-york">
+                New York
+            </option>
+
+            <option value="london">
+                London
+            </option>
+
+            <option value="paris">
+                Paris
+            </option>
+
+            <option value="tokyo">
+                Tokyo
+            </option>
+
+            <option value="dubai">
+                Dubai
+            </option>
+
+            <option value="singapore">
+                Singapore
+            </option>
+
+            <option value="sydney">
+                Sydney
+            </option>
+
+            <option value="toronto">
+                Toronto
+            </option>
+
+            <option value="bangkok">
+                Bangkok
+            </option>
+
+            <option value="jakarta">
+                Jakarta
+            </option>
+
+            <option value="frankfurt">
+                Frankfurt
+            </option>
+
+        </select>
+
+
+        <label data-i18n="airlinePriority">
+            Priorität
+        </label>
+
+        <select
+            id="airlinePriority"
+        >
+
+            <option
+                value="overall"
+                data-i18n="bestOverall"
+            >
+                ⭐ Beste Gesamtqualität
+            </option>
+
+            <option
+                value="value"
+                data-i18n="bestValue"
+            >
+                💰 Bestes Preis-Leistungs-Verhältnis
+            </option>
+
+            <option
+                value="economy"
+                data-i18n="bestEconomy"
+            >
+                🧳 Beste Economy
+            </option>
+
+            <option
+                value="business"
+                data-i18n="bestBusiness"
+            >
+                👑 Beste Business Class
+            </option>
+
+            <option
+                value="comfort"
+                data-i18n="bestComfort"
+            >
+                🛋️ Bester Komfort
+            </option>
+
+        </select>
+
+
+        <button
+            class="primary-button full-width"
+            onclick="findAirlines()"
+            data-i18n="airlineSearch"
+        >
+            🔎 Airlines finden
+        </button>
+
+
+        <div
+            id="airlineResults"
+            class="airline-results"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ACCOUNT MODAL
+     ===================================================== -->
+
+<div
+    id="accountModal"
+    class="modal"
+    aria-hidden="true"
+>
+
+    <div class="modal-content">
+
+        <button
+            class="modal-close"
+            onclick="closeAccount()"
+            aria-label="Close"
+        >
+            ×
+        </button>
+
+        <div class="modal-icon">
+            👤
+        </div>
+
+        <h2 data-i18n="accountTitle">
+            Mein Account
+        </h2>
+
+        <p
+            id="modalAccountStatus"
+            data-i18n="accountStatus"
+        >
+            Noch nicht angemeldet
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer class="app-footer">
+
+    <p>
+        © 2026 TravelMate
+    </p>
+
+    <p>
+        Travel smarter. Travel better. ✈️
+    </p>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
