@@ -2059,15 +2059,14 @@ function calculateBudget() {
 
 
 /* =========================================================
-   15. AIRLINE MATCHING DATABASE
+   15. AIRLINE FINDER DATABASE
    ========================================================= */
 
 const airlineDatabase = [
 
     {
-        name:
-            "Singapore Airlines",
-
+        name: "Singapore Airlines",
+        code: "SQ",
         destinations: [
             "new-york",
             "london",
@@ -2081,18 +2080,16 @@ const airlineDatabase = [
             "jakarta",
             "frankfurt"
         ],
-
         overall: 9.8,
-        value: 8.5,
-        economy: 9.6,
+        value: 8.6,
+        economy: 9.7,
         business: 9.9,
-        comfort: 9.8
+        comfort: 9.9
     },
 
     {
-        name:
-            "Qatar Airways",
-
+        name: "Qatar Airways",
+        code: "QR",
         destinations: [
             "new-york",
             "london",
@@ -2105,18 +2102,16 @@ const airlineDatabase = [
             "jakarta",
             "frankfurt"
         ],
-
         overall: 9.7,
-        value: 8.8,
-        economy: 9.4,
+        value: 9.0,
+        economy: 9.5,
         business: 10.0,
         comfort: 9.8
     },
 
     {
-        name:
-            "Emirates",
-
+        name: "Emirates",
+        code: "EK",
         destinations: [
             "new-york",
             "london",
@@ -2129,18 +2124,36 @@ const airlineDatabase = [
             "jakarta",
             "frankfurt"
         ],
-
         overall: 9.6,
-        value: 8.6,
-        economy: 9.3,
+        value: 8.7,
+        economy: 9.4,
+        business: 9.8,
+        comfort: 9.8
+    },
+
+    {
+        name: "ANA",
+        code: "NH",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "sydney",
+            "singapore",
+            "bangkok",
+            "frankfurt"
+        ],
+        overall: 9.5,
+        value: 8.5,
+        economy: 9.6,
         business: 9.7,
         comfort: 9.7
     },
 
     {
-        name:
-            "ANA",
-
+        name: "Cathay Pacific",
+        code: "CX",
         destinations: [
             "new-york",
             "london",
@@ -2149,43 +2162,41 @@ const airlineDatabase = [
             "sydney",
             "singapore",
             "bangkok",
+            "jakarta",
             "frankfurt"
         ],
-
-        overall: 9.5,
-        value: 8.4,
-        economy: 9.5,
-        business: 9.7,
+        overall: 9.4,
+        value: 8.8,
+        economy: 9.3,
+        business: 9.6,
         comfort: 9.6
     },
 
     {
-        name:
-            "Cathay Pacific",
-
+        name: "Etihad Airways",
+        code: "EY",
         destinations: [
             "new-york",
             "london",
             "paris",
             "tokyo",
+            "dubai",
             "sydney",
-            "singapore",
+            "toronto",
             "bangkok",
             "jakarta",
             "frankfurt"
         ],
-
         overall: 9.3,
-        value: 8.7,
-        economy: 9.2,
-        business: 9.5,
+        value: 9.0,
+        economy: 9.1,
+        business: 9.7,
         comfort: 9.5
     },
 
     {
-        name:
-            "Etihad Airways",
-
+        name: "Turkish Airlines",
+        code: "TK",
         destinations: [
             "new-york",
             "london",
@@ -2198,86 +2209,16 @@ const airlineDatabase = [
             "jakarta",
             "frankfurt"
         ],
-
         overall: 9.2,
-        value: 8.9,
-        economy: 9.0,
-        business: 9.6,
-        comfort: 9.4
-    },
-
-    {
-        name:
-            "Turkish Airlines",
-
-        destinations: [
-            "new-york",
-            "london",
-            "paris",
-            "tokyo",
-            "dubai",
-            "sydney",
-            "toronto",
-            "bangkok",
-            "jakarta",
-            "frankfurt"
-        ],
-
-        overall: 9.1,
-        value: 9.1,
-        economy: 9.0,
-        business: 9.1,
-        comfort: 9.0
-    },
-
-    {
-        name:
-            "Lufthansa",
-
-        destinations: [
-            "new-york",
-            "london",
-            "paris",
-            "tokyo",
-            "singapore",
-            "toronto",
-            "bangkok",
-            "frankfurt"
-        ],
-
-        overall: 9.0,
-        value: 8.1,
-        economy: 8.7,
-        business: 9.0,
-        comfort: 8.9
-    },
-
-    {
-        name:
-            "Air France",
-
-        destinations: [
-            "new-york",
-            "london",
-            "paris",
-            "tokyo",
-            "singapore",
-            "toronto",
-            "bangkok",
-            "frankfurt"
-        ],
-
-        overall: 9.0,
-        value: 8.3,
-        economy: 8.9,
-        business: 9.3,
+        value: 9.3,
+        economy: 9.1,
+        business: 9.2,
         comfort: 9.1
     },
 
     {
-        name:
-            "KLM",
-
+        name: "Lufthansa",
+        code: "LH",
         destinations: [
             "new-york",
             "london",
@@ -2288,18 +2229,461 @@ const airlineDatabase = [
             "bangkok",
             "frankfurt"
         ],
+        overall: 9.0,
+        value: 8.2,
+        economy: 8.8,
+        business: 9.1,
+        comfort: 8.9
+    },
 
-        overall: 8.9,
+    {
+        name: "Air France",
+        code: "AF",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "singapore",
+            "toronto",
+            "bangkok",
+            "frankfurt"
+        ],
+        overall: 9.0,
         value: 8.5,
+        economy: 9.0,
+        business: 9.3,
+        comfort: 9.2
+    },
+
+    {
+        name: "KLM",
+        code: "KL",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "singapore",
+            "toronto",
+            "bangkok",
+            "frankfurt"
+        ],
+        overall: 8.9,
+        value: 8.7,
+        economy: 8.8,
+        business: 9.1,
+        comfort: 8.9
+    },
+
+    {
+        name: "Japan Airlines",
+        code: "JL",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "sydney",
+            "singapore",
+            "bangkok",
+            "frankfurt"
+        ],
+        overall: 9.4,
+        value: 8.7,
+        economy: 9.5,
+        business: 9.6,
+        comfort: 9.6
+    },
+
+    {
+        name: "EVA Air",
+        code: "BR",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "singapore",
+            "bangkok",
+            "jakarta",
+            "frankfurt"
+        ],
+        overall: 9.3,
+        value: 9.0,
+        economy: 9.4,
+        business: 9.4,
+        comfort: 9.5
+    },
+
+    {
+        name: "Korean Air",
+        code: "KE",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "sydney",
+            "singapore",
+            "bangkok",
+            "frankfurt"
+        ],
+        overall: 9.2,
+        value: 8.7,
+        economy: 9.2,
+        business: 9.5,
+        comfort: 9.4
+    },
+
+    {
+        name: "Finnair",
+        code: "AY",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "bangkok",
+            "singapore",
+            "frankfurt"
+        ],
+        overall: 8.8,
+        value: 8.7,
+        economy: 8.8,
+        business: 8.9,
+        comfort: 8.8
+    },
+
+    {
+        name: "Swiss",
+        code: "LX",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "singapore",
+            "bangkok",
+            "frankfurt"
+        ],
+        overall: 8.9,
+        value: 8.1,
+        economy: 8.8,
+        business: 9.1,
+        comfort: 8.9
+    },
+
+    {
+        name: "Austrian Airlines",
+        code: "OS",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "bangkok",
+            "frankfurt"
+        ],
+        overall: 8.7,
+        value: 8.4,
+        economy: 8.6,
+        business: 8.9,
+        comfort: 8.7
+    },
+
+    {
+        name: "British Airways",
+        code: "BA",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "singapore",
+            "sydney",
+            "toronto",
+            "frankfurt"
+        ],
+        overall: 8.7,
+        value: 8.0,
+        economy: 8.5,
+        business: 8.9,
+        comfort: 8.6
+    },
+
+    {
+        name: "Virgin Atlantic",
+        code: "VS",
+        destinations: [
+            "new-york",
+            "london",
+            "tokyo",
+            "singapore",
+            "sydney",
+            "frankfurt"
+        ],
+        overall: 8.8,
+        value: 8.4,
+        economy: 8.8,
+        business: 9.2,
+        comfort: 9.0
+    },
+
+    {
+        name: "Delta Air Lines",
+        code: "DL",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "sydney",
+            "toronto",
+            "frankfurt"
+        ],
+        overall: 8.8,
+        value: 8.3,
+        economy: 8.7,
+        business: 9.0,
+        comfort: 8.8
+    },
+
+    {
+        name: "United Airlines",
+        code: "UA",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "singapore",
+            "sydney",
+            "toronto",
+            "frankfurt"
+        ],
+        overall: 8.6,
+        value: 8.4,
+        economy: 8.5,
+        business: 8.8,
+        comfort: 8.5
+    },
+
+    {
+        name: "American Airlines",
+        code: "AA",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "sydney",
+            "toronto",
+            "frankfurt"
+        ],
+        overall: 8.4,
+        value: 8.5,
+        economy: 8.2,
+        business: 8.7,
+        comfort: 8.3
+    },
+
+    {
+        name: "Qantas",
+        code: "QF",
+        destinations: [
+            "new-york",
+            "london",
+            "tokyo",
+            "singapore",
+            "sydney",
+            "bangkok",
+            "frankfurt"
+        ],
+        overall: 9.1,
+        value: 8.3,
+        economy: 9.0,
+        business: 9.4,
+        comfort: 9.2
+    },
+
+    {
+        name: "Air New Zealand",
+        code: "NZ",
+        destinations: [
+            "new-york",
+            "london",
+            "tokyo",
+            "singapore",
+            "sydney",
+            "frankfurt"
+        ],
+        overall: 9.0,
+        value: 8.5,
+        economy: 9.0,
+        business: 9.3,
+        comfort: 9.2
+    },
+
+    {
+        name: "Thai Airways",
+        code: "TG",
+        destinations: [
+            "london",
+            "paris",
+            "tokyo",
+            "singapore",
+            "sydney",
+            "bangkok",
+            "jakarta",
+            "frankfurt"
+        ],
+        overall: 8.8,
+        value: 8.9,
         economy: 8.8,
         business: 9.0,
-        comfort: 8.9
+        comfort: 8.8
+    },
+
+    {
+        name: "Malaysia Airlines",
+        code: "MH",
+        destinations: [
+            "london",
+            "paris",
+            "tokyo",
+            "singapore",
+            "sydney",
+            "bangkok",
+            "jakarta",
+            "frankfurt"
+        ],
+        overall: 8.6,
+        value: 9.0,
+        economy: 8.7,
+        business: 8.9,
+        comfort: 8.6
+    },
+
+    {
+        name: "Garuda Indonesia",
+        code: "GA",
+        destinations: [
+            "tokyo",
+            "singapore",
+            "sydney",
+            "bangkok",
+            "jakarta",
+            "frankfurt"
+        ],
+        overall: 8.5,
+        value: 8.8,
+        economy: 8.7,
+        business: 8.8,
+        comfort: 8.6
+    },
+
+    {
+        name: "Vietnam Airlines",
+        code: "VN",
+        destinations: [
+            "london",
+            "paris",
+            "tokyo",
+            "singapore",
+            "sydney",
+            "bangkok",
+            "frankfurt"
+        ],
+        overall: 8.5,
+        value: 9.0,
+        economy: 8.7,
+        business: 8.8,
+        comfort: 8.5
+    },
+
+    {
+        name: "Etihad Airways",
+        code: "EY",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "dubai",
+            "sydney",
+            "toronto",
+            "bangkok",
+            "jakarta",
+            "frankfurt"
+        ],
+        overall: 9.3,
+        value: 9.0,
+        economy: 9.1,
+        business: 9.7,
+        comfort: 9.5
+    },
+
+    {
+        name: "Turkish Airlines",
+        code: "TK",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "dubai",
+            "sydney",
+            "toronto",
+            "bangkok",
+            "jakarta",
+            "frankfurt"
+        ],
+        overall: 9.2,
+        value: 9.3,
+        economy: 9.1,
+        business: 9.2,
+        comfort: 9.1
+    },
+
+    {
+        name: "Iberia",
+        code: "IB",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "frankfurt"
+        ],
+        overall: 8.5,
+        value: 8.6,
+        economy: 8.4,
+        business: 8.8,
+        comfort: 8.4
+    },
+
+    {
+        name: "ITA Airways",
+        code: "AZ",
+        destinations: [
+            "new-york",
+            "london",
+            "paris",
+            "tokyo",
+            "frankfurt"
+        ],
+        overall: 8.3,
+        value: 8.3,
+        economy: 8.2,
+        business: 8.5,
+        comfort: 8.3
     }
 ];
 
 
 /* =========================================================
-   16. AIRLINE FINDER
+   16.  AIRLINE FINDER
    ========================================================= */
 
 function openAirlineFinder() {
@@ -2309,9 +2693,7 @@ function openAirlineFinder() {
             "airlineFinderModal"
         );
 
-
     if (!modal) return;
-
 
     modal.classList.add(
         "active"
@@ -2331,9 +2713,7 @@ function closeAirlineFinder() {
             "airlineFinderModal"
         );
 
-
     if (!modal) return;
-
 
     modal.classList.remove(
         "active"
@@ -2346,11 +2726,15 @@ function closeAirlineFinder() {
 }
 
 
+/* =========================================================
+   AIRLINE PRIORITY LABEL
+   ========================================================= */
+
 function getAirlinePriorityName(
     priority
 ) {
 
-    const map = {
+    const labels = {
 
         overall:
             "overall",
@@ -2368,28 +2752,163 @@ function getAirlinePriorityName(
             "comfort"
     };
 
-
     return t(
-        map[priority] ||
+        labels[priority] ||
         "overall"
     );
 }
 
 
+/* =========================================================
+   AIRLINE SCORE
+   ========================================================= */
+
+function getAirlineScore(
+    airline,
+    priority
+) {
+
+    const score =
+        Number(
+            airline[priority]
+        );
+
+    if (
+        !Number.isFinite(
+            score
+        )
+    ) {
+
+        return 0;
+    }
+
+    return Math.max(
+        0,
+        Math.min(
+            10,
+            score
+        )
+    );
+}
+
+
+/* =========================================================
+   AIRLINE RESULT CARD
+   ========================================================= */
+
+function createAirlineResultCard(
+    airline,
+    index,
+    priority
+) {
+
+    const score =
+        getAirlineScore(
+            airline,
+            priority
+        );
+
+
+    const medal =
+        index === 0
+            ? "🥇"
+            : index === 1
+                ? "🥈"
+                : index === 2
+                    ? "🥉"
+                    : "✈️";
+
+
+    return `
+        <div class="airline-result-card">
+
+            <div class="airline-result-top">
+
+                <span class="airline-rank">
+                    ${medal}
+                </span>
+
+                <div class="airline-result-info">
+
+                    <h3>
+                        ${airline.name}
+                    </h3>
+
+                    <span>
+                        ${airline.code}
+                        ·
+                        ${getAirlinePriorityName(
+                            priority
+                        )}
+                    </span>
+
+                </div>
+
+                <strong class="airline-score">
+                    ${score.toFixed(1)}
+                </strong>
+
+            </div>
+
+            <div class="airline-score-bar">
+
+                <span
+                    style="
+                        width:${score * 10}%;
+                    "
+                ></span>
+
+            </div>
+
+            <div class="airline-result-details">
+
+                <span>
+                    ⭐ ${t("overall")}:
+                    ${airline.overall.toFixed(1)}
+                </span>
+
+                <span>
+                    💰 ${t("value")}:
+                    ${airline.value.toFixed(1)}
+                </span>
+
+                <span>
+                    🧳 ${t("economy")}:
+                    ${airline.economy.toFixed(1)}
+                </span>
+
+                <span>
+                    👑 ${t("business")}:
+                    ${airline.business.toFixed(1)}
+                </span>
+
+                <span>
+                    🛋️ ${t("comfort")}:
+                    ${airline.comfort.toFixed(1)}
+                </span>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   FIND AIRLINES
+   ========================================================= */
+
 function findAirlines() {
 
-    const destination =
+    const destinationElement =
         document.getElementById(
             "airlineDestination"
-        )?.value;
+        );
 
-
-    const priority =
+    const priorityElement =
         document.getElementById(
             "airlinePriority"
-        )?.value ||
-        "overall";
-
+        );
 
     const results =
         document.getElementById(
@@ -2397,30 +2916,115 @@ function findAirlines() {
         );
 
 
-    if (!results) return;
+    if (
+        !destinationElement ||
+        !priorityElement ||
+        !results
+    ) {
 
+        console.error(
+            "TravelMate Airline Finder: Required HTML element missing."
+        );
+
+        return;
+    }
+
+
+    const destination =
+        destinationElement.value;
+
+
+    const priority =
+        priorityElement.value;
+
+
+    /*
+     * Only allow known priorities.
+     */
+
+    const validPriorities = [
+        "overall",
+        "value",
+        "economy",
+        "business",
+        "comfort"
+    ];
+
+
+    const selectedPriority =
+        validPriorities.includes(
+            priority
+        )
+            ? priority
+            : "overall";
+
+
+    /*
+     * Find airlines serving
+     * the selected destination.
+     */
 
     const matches =
         airlineDatabase
             .filter(
                 airline =>
+                    Array.isArray(
+                        airline.destinations
+                    ) &&
                     airline.destinations.includes(
                         destination
                     )
+            )
+            .map(
+                airline => ({
+                    ...airline,
+                    score:
+                        getAirlineScore(
+                            airline,
+                            selectedPriority
+                        )
+                })
             )
             .sort(
                 (
                     a,
                     b
-                ) =>
-                    b[priority] -
-                    a[priority]
-            )
-            .slice(
-                0,
-                3
+                ) => {
+
+                    /*
+                     * First sort by selected
+                     * priority.
+                     */
+
+                    if (
+                        b.score !==
+                        a.score
+                    ) {
+
+                        return (
+                            b.score -
+                            a.score
+                        );
+                    }
+
+
+                    /*
+                     * If scores are identical,
+                     * use overall quality as
+                     * tie-breaker.
+                     */
+
+                    return (
+                        b.overall -
+                        a.overall
+                    );
+                }
             );
 
+
+    /*
+     * No results.
+     */
 
     if (
         matches.length === 0
@@ -2436,71 +3040,69 @@ function findAirlines() {
     }
 
 
+    /*
+     * Show the best five.
+     */
+
+    const topMatches =
+        matches.slice(
+            0,
+            5
+        );
+
+
     results.innerHTML =
-        matches
+        topMatches
             .map(
                 (
                     airline,
                     index
-                ) => {
-
-                    const medal =
-                        index === 0
-                            ? "🥇"
-                            : index === 1
-                                ? "🥈"
-                                : "🥉";
-
-
-                    const score =
-                        Number(
-                            airline[
-                                priority
-                            ]
-                        );
-
-
-                    return `
-                        <div
-                            class="airline-result"
-                        >
-
-                            <div
-                                class="airline-rank"
-                            >
-                                ${medal}
-                            </div>
-
-                            <div
-                                class="airline-info"
-                            >
-
-                                <div
-                                    class="airline-name"
-                                >
-                                    ${airline.name}
-                                </div>
-
-                                <div
-                                    class="airline-rating"
-                                >
-                                    ${getAirlinePriorityName(
-                                        priority
-                                    )}
-                                    ·
-                                    ${score.toFixed(
-                                        1
-                                    )}/10
-                                </div>
-
-                            </div>
-
-                        </div>
-                    `;
-                }
+                ) =>
+                    createAirlineResultCard(
+                        airline,
+                        index,
+                        selectedPriority
+                    )
             )
             .join("");
 }
+
+
+/* =========================================================
+   AIRLINE FINDER LANGUAGE UPDATE
+   ========================================================= */
+
+function updateAirlineFinderLanguage() {
+
+    const results =
+        document.getElementById(
+            "airlineResults"
+        );
+
+
+    /*
+     * Re-render existing results
+     * when language changes.
+     */
+
+    if (
+        results &&
+        results.children.length > 0
+    ) {
+
+        findAirlines();
+    }
+}
+   
+
+
+
+
+
+ 
+
+
+
 
 
 /* =========================================================
