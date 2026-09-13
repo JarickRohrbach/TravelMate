@@ -1520,3 +1520,334 @@ h3 {
     outline: 3px solid rgba(8, 124, 245, 0.35);
     outline-offset: 3px;
 }
+/* =========================================================
+   TRAVELMATE – ALLE KACHELN WIE AIRLINE FINDER
+   Nur ergänzen – bestehende CSS bleibt erhalten
+   ========================================================= */
+
+/* Gemeinsame Kachel */
+.tool-card {
+    position: relative;
+    overflow: hidden;
+
+    margin-bottom: 17px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #087cf5 0%,
+            #005dcc 100%
+        );
+
+    color: #ffffff;
+
+    box-shadow:
+        0 15px 40px
+        rgba(0, 104, 220, 0.24);
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+
+/* Flugzeug-Dekoration wie beim Airline Finder */
+.tool-card::after {
+    content: "✈";
+
+    position: absolute;
+
+    right: 0;
+    bottom: -48px;
+
+    font-size: 145px;
+
+    color: #ffffff;
+
+    opacity: 0.09;
+
+    transform: rotate(-12deg);
+
+    pointer-events: none;
+}
+
+
+/* Hover exakt im gleichen Stil */
+.tool-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 20px 48px
+        rgba(0, 104, 220, 0.30);
+}
+
+
+/* =========================================================
+   HEADER DER KACHELN
+   ========================================================= */
+
+.tool-card .card-header {
+    position: relative;
+    z-index: 3;
+
+    width: 100%;
+
+    min-height: 91px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding:
+        17px 19px;
+
+    margin: 0;
+
+    border: none;
+
+    border-radius: 25px;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   ICON – GLEICHE FORM WIE AIRLINE FINDER
+   ========================================================= */
+
+.tool-card .tool-icon {
+    position: relative;
+    z-index: 4;
+
+    width: 56px;
+    height: 56px;
+
+    min-width: 56px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,0.16);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.18);
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,0.12),
+
+        0 7px 18px
+        rgba(0,40,100,0.12);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    font-size: 28px;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   NAMEN + BESCHREIBUNG
+   ========================================================= */
+
+.tool-card .tool-info {
+    position: relative;
+    z-index: 4;
+
+    flex: 1;
+
+    min-width: 0;
+}
+
+.tool-card .tool-info h2 {
+    margin:
+        0 0 5px;
+
+    color: #ffffff;
+
+    font-size: 19px;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+}
+
+.tool-card .tool-info p {
+    margin: 0;
+
+    color:
+        rgba(255,255,255,0.82);
+
+    font-size: 13px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   PFEIL
+   ========================================================= */
+
+.tool-card .card-arrow {
+    position: relative;
+    z-index: 4;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    color:
+        rgba(255,255,255,0.95);
+
+    font-size: 29px;
+
+    flex-shrink: 0;
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+/* Pfeil drehen beim Öffnen */
+.tool-card.open .card-arrow {
+    transform:
+        rotate(90deg);
+}
+
+
+/* =========================================================
+   DIE PASSENDEN ICONS
+   ========================================================= */
+
+#currencyCard .tool-icon::after {
+    content: "💱";
+}
+
+#connectionCard .tool-icon::after {
+    content: "✈️";
+}
+
+#timezoneCard .tool-icon::after {
+    content: "🌍";
+}
+
+#budgetCard .tool-icon::after {
+    content: "💰";
+}
+
+#settingsCard .tool-icon::after {
+    content: "⚙️";
+}
+
+
+/* Keine doppelten vorhandenen Icons */
+#currencyCard .tool-icon,
+#connectionCard .tool-icon,
+#timezoneCard .tool-icon,
+#budgetCard .tool-icon,
+#settingsCard .tool-icon {
+    font-size: 0;
+}
+
+
+/* Größe */
+#currencyCard .tool-icon::after,
+#connectionCard .tool-icon::after,
+#timezoneCard .tool-icon::after,
+#budgetCard .tool-icon::after,
+#settingsCard .tool-icon::after {
+    font-size: 28px;
+}
+
+
+/* =========================================================
+   AUFGEKLAPPTER BEREICH
+   ========================================================= */
+
+.tool-card .tool-content {
+    position: relative;
+    z-index: 4;
+
+    padding:
+        0 19px 21px;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   MOBILE – WIE AIRLINE FINDER
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .tool-card {
+        border-radius: 23px;
+    }
+
+    .tool-card .card-header {
+        min-height: 86px;
+
+        padding:
+            15px 16px;
+
+        gap: 12px;
+
+        border-radius: 23px;
+    }
+
+    .tool-card .tool-icon {
+        width: 51px;
+        height: 51px;
+
+        min-width: 51px;
+
+        border-radius: 16px;
+    }
+
+    #currencyCard .tool-icon::after,
+    #connectionCard .tool-icon::after,
+    #timezoneCard .tool-icon::after,
+    #budgetCard .tool-icon::after,
+    #settingsCard .tool-icon::after {
+        font-size: 25px;
+    }
+
+    .tool-card .tool-info h2 {
+        font-size: 17px;
+    }
+
+    .tool-card .tool-info p {
+        font-size: 12px;
+    }
+
+    .tool-card .card-arrow {
+        font-size: 26px;
+    }
+
+    .tool-card .tool-content {
+        padding:
+            0 16px 19px;
+    }
+}
