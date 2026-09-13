@@ -1,0 +1,2120 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>TravelMate</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css?v=2"
+  >
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="travelmate-Icon.png.PNG"
+  >
+
+  <link
+    rel="apple-touch-icon"
+    href="travelmate-Icon.png.PNG"
+  >
+
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+  >
+
+  <meta
+    name="apple-mobile-web-app-title"
+    content="TravelMate"
+  >
+
+  <!-- =====================================================
+       AIRLINE FINDER – eigenes Design
+       ===================================================== -->
+
+  <style>
+
+    .airline-teaser {
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #ffffff 0%, #edf6ff 100%);
+      border: 1px solid #d8e9ff;
+      box-shadow: 0 8px 25px rgba(20, 100, 190, 0.10);
+      cursor: pointer;
+      transition: 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .airline-teaser:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(20, 100, 190, 0.16);
+    }
+
+    .airline-teaser:active {
+      transform: scale(0.985);
+    }
+
+    .airline-teaser-icon {
+      width: 58px;
+      height: 58px;
+      min-width: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #0866ff, #3aa7ff);
+      color: white;
+      font-size: 28px;
+      box-shadow: 0 8px 20px rgba(8, 102, 255, 0.25);
+    }
+
+    .airline-teaser-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .airline-teaser-content h2 {
+      margin: 0 0 5px 0;
+      color: #102f59;
+      font-size: 21px;
+    }
+
+    .airline-teaser-content p {
+      margin: 0;
+      color: #68778c;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .airline-teaser-arrow {
+      color: #0866ff;
+      font-size: 29px;
+      font-weight: bold;
+    }
+
+
+    /* =====================================================
+       MODAL
+       ===================================================== */
+
+    #airlineFinderModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      padding: 15px;
+      box-sizing: border-box;
+      background: rgba(5, 25, 55, 0.62);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      overflow-y: auto;
+    }
+
+    #airlineFinderModal.airline-open {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .airline-modal-box {
+      width: 100%;
+      max-width: 520px;
+      max-height: 94vh;
+      overflow-y: auto;
+      box-sizing: border-box;
+      position: relative;
+      padding: 25px;
+      border-radius: 28px;
+      background: #ffffff;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.28);
+      animation: airlineAppear 0.22s ease;
+    }
+
+    @keyframes airlineAppear {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .airline-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      margin: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #edf4fc;
+      color: #164d87;
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .airline-modal-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding-right: 45px;
+      margin-bottom: 25px;
+    }
+
+    .airline-modal-icon {
+      width: 58px;
+      height: 58px;
+      min-width: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #0866ff, #3aa7ff);
+      color: white;
+      font-size: 28px;
+    }
+
+    .airline-modal-header h2 {
+      margin: 0 0 5px 0;
+      color: #102f59;
+      font-size: 26px;
+    }
+
+    .airline-modal-header p {
+      margin: 0;
+      color: #728096;
+      font-size: 14px;
+    }
+
+    .airline-field-label {
+      display: block;
+      margin: 17px 0 7px;
+      color: #243e61;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .airline-select {
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 50px;
+      padding: 0 13px;
+      border: 1px solid #d8e6f5;
+      border-radius: 14px;
+      background: #f7faff;
+      color: #173f70;
+      font-size: 15px;
+      font-weight: 600;
+      outline: none;
+    }
+
+    .airline-select:focus {
+      border-color: #318eff;
+      box-shadow: 0 0 0 3px rgba(49, 142, 255, 0.12);
+    }
+
+    .airline-search {
+      width: 100%;
+      min-height: 52px;
+      margin-top: 20px;
+      border: 0;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #0866ff, #318eff);
+      color: white;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(8, 102, 255, 0.22);
+    }
+
+    .airline-search:active {
+      transform: scale(0.98);
+    }
+
+    .airline-results {
+      margin-top: 25px;
+    }
+
+    .airline-results-heading {
+      margin: 0 0 13px;
+      color: #102f59;
+      font-size: 20px;
+    }
+
+    .airline-result-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      margin-bottom: 11px;
+      border: 1px solid #e0ebf8;
+      border-radius: 17px;
+      background: #f8fbff;
+    }
+
+    .airline-result-rank {
+      width: 30px;
+      min-width: 30px;
+      text-align: center;
+      font-size: 20px;
+    }
+
+    .airline-result-logo {
+      width: 45px;
+      height: 45px;
+      min-width: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 13px;
+      background: white;
+      border: 1px solid #e0e8f2;
+      font-size: 23px;
+    }
+
+    .airline-result-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .airline-result-name {
+      color: #102f59;
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+
+    .airline-result-rating {
+      color: #e89a00;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .airline-result-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 7px;
+    }
+
+    .airline-result-tag {
+      padding: 4px 8px;
+      border-radius: 7px;
+      background: #e7f1ff;
+      color: #1767c9;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .airline-top-pick {
+      display: inline-block;
+      margin-left: 5px;
+      padding: 3px 6px;
+      border-radius: 6px;
+      background: #fff2cf;
+      color: #9a6800;
+      font-size: 9px;
+      vertical-align: middle;
+    }
+
+    @media (max-width: 600px) {
+
+      #airlineFinderModal {
+        padding: 9px;
+      }
+
+      .airline-modal-box {
+        max-height: 96vh;
+        padding: 21px;
+        border-radius: 24px;
+      }
+
+      .airline-teaser {
+        padding: 17px;
+      }
+
+      .airline-teaser-content h2 {
+        font-size: 19px;
+      }
+
+      .airline-teaser-content p {
+        font-size: 13px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       ACCOUNT
+       ===================================================== -->
+
+  <section class="account-card">
+
+    <div>
+
+      <h2 id="accountTitle">
+        👤 Mein Account
+      </h2>
+
+      <p id="accountStatus">
+        Noch nicht angemeldet
+      </p>
+
+    </div>
+
+    <button onclick="openAccount()">
+      Anmelden
+    </button>
+
+  </section>
+
+
+  <!-- =====================================================
+       SETTINGS
+       ===================================================== -->
+
+  <section class="settings-card">
+
+    <h2 id="settingsTitle">
+      ⚙️ Einstellungen
+    </h2>
+
+    <label
+      for="languageSelect"
+      id="languageLabel"
+    >
+      Sprache
+    </label>
+
+    <select
+      id="languageSelect"
+      onchange="changeLanguage()"
+    >
+
+      <option value="de">
+        🇩🇪 Deutsch
+      </option>
+
+      <option value="en">
+        🇬🇧 English
+      </option>
+
+    </select>
+
+  </section>
+
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <header>
+
+    <h1>
+      ✈️ TravelMate
+    </h1>
+
+    <p id="subtitle">
+      Deine Reise. Einfacher.
+    </p>
+
+  </header>
+
+
+  <!-- =====================================================
+       MAIN
+       ===================================================== -->
+
+  <main>
+
+
+    <!-- ===================================================
+         WÄHRUNGSRECHNER
+         =================================================== -->
+
+    <section class="card">
+
+      <h2 id="currencyTitle">
+        💱 Währungsrechner
+      </h2>
+
+      <input
+        type="number"
+        id="amount"
+        placeholder="Betrag eingeben"
+        step="any"
+      >
+
+      <select id="fromCurrency">
+
+        <option value="">
+          Währungen werden geladen...
+        </option>
+
+      </select>
+
+      <select id="toCurrency">
+
+        <option value="">
+          Währungen werden geladen...
+        </option>
+
+      </select>
+
+      <button onclick="convertCurrency()">
+        Umrechnen
+      </button>
+
+      <h3 id="currencyResult">
+        Ergebnis erscheint hier
+      </h3>
+
+    </section>
+
+
+    <!-- ===================================================
+         ANSCHLUSSRECHNER
+         =================================================== -->
+
+    <section class="card">
+
+      <h2 id="connectionTitle">
+        ✈️ Anschlussrechner
+      </h2>
+
+      <label
+        for="arrivalTime"
+        id="arrivalLabel"
+      >
+        Ankunftszeit
+      </label>
+
+      <input
+        type="time"
+        id="arrivalTime"
+      >
+
+      <label
+        for="departureTime"
+        id="departureLabel"
+      >
+        Abflugzeit
+      </label>
+
+      <input
+        type="time"
+        id="departureTime"
+      >
+
+      <button onclick="calculateConnection()">
+        Anschluss prüfen
+      </button>
+
+      <h3 id="connectionResult">
+        Gib deine Flugzeiten ein
+      </h3>
+
+    </section>
+
+
+    <!-- ===================================================
+         ZEITZONENRECHNER
+         =================================================== -->
+
+    <section class="card">
+
+      <h2 id="timezoneTitle">
+        🕐 Zeitzonenrechner
+      </h2>
+
+      <label
+        for="timezoneDate"
+        id="timezoneDateLabel"
+      >
+        Datum
+      </label>
+
+      <input
+        type="date"
+        id="timezoneDate"
+      >
+
+      <label
+        for="timezoneTime"
+        id="timezoneTimeLabel"
+      >
+        Uhrzeit
+      </label>
+
+      <input
+        type="time"
+        id="timezoneTime"
+      >
+
+      <label
+        for="fromTimezone"
+        id="fromTimezoneLabel"
+      >
+        Ausgangs-Zeitzone
+      </label>
+
+      <select id="fromTimezone">
+
+        <option value="Europe/Berlin">
+          Berlin
+        </option>
+
+      </select>
+
+      <label
+        for="toTimezone"
+        id="toTimezoneLabel"
+      >
+        Ziel-Zeitzone
+      </label>
+
+      <select id="toTimezone">
+
+        <option value="Asia/Jakarta">
+          Jakarta
+        </option>
+
+      </select>
+
+      <button onclick="calculateTimezone()">
+        Zeitzone umrechnen
+      </button>
+
+      <h3 id="timezoneResult">
+        Ergebnis erscheint hier
+      </h3>
+
+    </section>
+
+
+    <!-- ===================================================
+         REISEBUDGET
+         =================================================== -->
+
+    <section class="card">
+
+      <h2 id="budgetTitle">
+        💰 Reisebudget
+      </h2>
+
+      <input
+        type="number"
+        id="flight"
+        placeholder="Flugkosten €"
+        step="any"
+      >
+
+      <input
+        type="number"
+        id="hotel"
+        placeholder="Unterkunft €"
+        step="any"
+      >
+
+      <input
+        type="number"
+        id="food"
+        placeholder="Essen €"
+        step="any"
+      >
+
+      <input
+        type="number"
+        id="transport"
+        placeholder="Transport €"
+        step="any"
+      >
+
+      <button onclick="calculateBudget()">
+        Budget berechnen
+      </button>
+
+      <h3 id="budgetResult">
+        Dein Reisebudget
+      </h3>
+
+    </section>
+
+
+    <!-- ===================================================
+         ✈️ AIRLINE FINDER
+         NEU – zunächst nur als Karte sichtbar
+         =================================================== -->
+
+    <section
+      class="airline-teaser"
+      id="airlineFinderTeaser"
+      role="button"
+      tabindex="0"
+      aria-label="Airline Finder öffnen"
+    >
+
+      <div class="airline-teaser-icon">
+        ✈️
+      </div>
+
+      <div class="airline-teaser-content">
+
+        <h2>
+          Airline Finder
+        </h2>
+
+        <p>
+          Finde die besten Airlines für dein Reiseziel.
+        </p>
+
+      </div>
+
+      <div class="airline-teaser-arrow">
+        →
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- =====================================================
+       ✈️ AIRLINE FINDER MODAL
+       ===================================================== -->
+
+  <div
+    id="airlineFinderModal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="airline-modal-box"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="airlineFinderTitle"
+    >
+
+      <button
+        type="button"
+        class="airline-close"
+        id="airlineFinderClose"
+        aria-label="Airline Finder schließen"
+      >
+        ×
+      </button>
+
+
+      <div class="airline-modal-header">
+
+        <div class="airline-modal-icon">
+          ✈️
+        </div>
+
+        <div>
+
+          <h2 id="airlineFinderTitle">
+            Airline Finder
+          </h2>
+
+          <p id="airlineFinderDescription">
+            Finde die besten Airlines für dein Reiseziel.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <label
+        class="airline-field-label"
+        for="airlineDestination"
+        id="airlineDestinationLabel"
+      >
+        Reiseziel
+      </label>
+
+      <select
+        class="airline-select"
+        id="airlineDestination"
+      >
+
+        <option value="new-york">
+          🇺🇸 New York
+        </option>
+
+        <option value="london">
+          🇬🇧 London
+        </option>
+
+        <option value="paris">
+          🇫🇷 Paris
+        </option>
+
+        <option value="tokyo">
+          🇯🇵 Tokyo
+        </option>
+
+        <option value="dubai">
+          🇦🇪 Dubai
+        </option>
+
+        <option value="singapore">
+          🇸🇬 Singapore
+        </option>
+
+        <option value="sydney">
+          🇦🇺 Sydney
+        </option>
+
+        <option value="toronto">
+          🇨🇦 Toronto
+        </option>
+
+        <option value="bangkok">
+          🇹🇭 Bangkok
+        </option>
+
+        <option value="jakarta">
+          🇮🇩 Jakarta
+        </option>
+
+        <option value="frankfurt">
+          🇩🇪 Frankfurt
+        </option>
+
+      </select>
+
+
+      <label
+        class="airline-field-label"
+        for="airlinePriority"
+        id="airlinePriorityLabel"
+      >
+        Priorität
+      </label>
+
+      <select
+        class="airline-select"
+        id="airlinePriority"
+      >
+
+        <option value="overall">
+          ⭐ Beste Gesamtqualität
+        </option>
+
+        <option value="value">
+          💰 Bestes Preis-Leistungs-Verhältnis
+        </option>
+
+        <option value="economy">
+          🧳 Beste Economy
+        </option>
+
+        <option value="business">
+          👑 Beste Business Class
+        </option>
+
+        <option value="comfort">
+          🛋️ Bester Komfort
+        </option>
+
+        <option value="wifi">
+          📶 Bestes WLAN
+        </option>
+
+        <option value="connections">
+          🔄 Beste Umsteigeverbindungen
+        </option>
+
+      </select>
+
+
+      <button
+        type="button"
+        class="airline-search"
+        id="airlineSearchButton"
+      >
+        🔎 Airlines finden
+      </button>
+
+
+      <div
+        class="airline-results"
+        id="airlineResults"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       ACCOUNT MODAL
+       ===================================================== -->
+
+  <div
+    id="accountModal"
+    class="modal"
+  >
+
+    <div class="modal-content">
+
+      <button
+        class="close-button"
+        onclick="closeAccount()"
+      >
+        ×
+      </button>
+
+      <h2 id="accountModalTitle">
+        👤 TravelMate Account
+      </h2>
+
+      <div id="loginArea">
+
+        <input
+          type="email"
+          id="email"
+          placeholder="E-Mail-Adresse"
+        >
+
+        <input
+          type="password"
+          id="password"
+          placeholder="Passwort"
+        >
+
+        <button onclick="createAccount()">
+          Account erstellen
+        </button>
+
+        <button
+          class="secondary-button"
+          onclick="login()"
+        >
+          Anmelden
+        </button>
+
+        <p id="accountMessage"></p>
+
+      </div>
+
+
+      <div
+        id="loggedInArea"
+        style="display:none;"
+      >
+
+        <h3 id="welcomeMessage">
+          Willkommen bei TravelMate! ✈️
+        </h3>
+
+        <p id="loggedInEmail"></p>
+
+        <button onclick="logout()">
+          Abmelden
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       BESTEHENDES JAVASCRIPT
+       ===================================================== -->
+
+  <script src="script.js"></script>
+
+
+  <!-- =====================================================
+       AIRLINE FINDER JAVASCRIPT
+       Komplett unabhängig vom bestehenden script.js
+       ===================================================== -->
+
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const teaser =
+        document.getElementById("airlineFinderTeaser");
+
+      const modal =
+        document.getElementById("airlineFinderModal");
+
+      const closeButton =
+        document.getElementById("airlineFinderClose");
+
+      const searchButton =
+        document.getElementById("airlineSearchButton");
+
+      const destination =
+        document.getElementById("airlineDestination");
+
+      const priority =
+        document.getElementById("airlinePriority");
+
+      const results =
+        document.getElementById("airlineResults");
+
+      const languageSelect =
+        document.getElementById("languageSelect");
+
+
+      if (
+        !teaser ||
+        !modal ||
+        !closeButton ||
+        !searchButton ||
+        !destination ||
+        !priority ||
+        !results
+      ) {
+
+        console.error(
+          "TravelMate: Airline Finder konnte nicht initialisiert werden."
+        );
+
+        return;
+
+      }
+
+
+      /* ===================================================
+         DATENBANK
+         =================================================== */
+
+      const airlines = {
+
+        "new-york": [
+          {
+            name: "Singapore Airlines",
+            logo: "🇸🇬",
+            rating: 4.8,
+            scores: {
+              overall: 100,
+              value: 94,
+              economy: 96,
+              business: 100,
+              comfort: 100,
+              wifi: 96,
+              connections: 98
+            },
+            tags: [
+              "Premium Service",
+              "Komfort"
+            ]
+          },
+
+          {
+            name: "Qatar Airways",
+            logo: "🇶🇦",
+            rating: 4.8,
+            scores: {
+              overall: 99,
+              value: 97,
+              economy: 96,
+              business: 100,
+              comfort: 98,
+              wifi: 97,
+              connections: 100
+            },
+            tags: [
+              "Service",
+              "Umstieg"
+            ]
+          },
+
+          {
+            name: "Emirates",
+            logo: "🇦🇪",
+            rating: 4.7,
+            scores: {
+              overall: 97,
+              value: 94,
+              economy: 95,
+              business: 98,
+              comfort: 99,
+              wifi: 95,
+              connections: 97
+            },
+            tags: [
+              "Komfort",
+              "Entertainment"
+            ]
+          }
+        ],
+
+
+        "london": [
+          {
+            name: "Singapore Airlines",
+            logo: "🇸🇬",
+            rating: 4.9,
+            scores: {
+              overall: 100,
+              value: 94,
+              economy: 98,
+              business: 100,
+              comfort: 100,
+              wifi: 96,
+              connections: 98
+            },
+            tags: [
+              "Premium Service",
+              "Komfort"
+            ]
+          },
+
+          {
+            name: "Qatar Airways",
+            logo: "🇶🇦",
+            rating: 4.8,
+            scores: {
+              overall: 99,
+              value: 97,
+              economy: 97,
+              business: 100,
+              comfort: 98,
+              wifi: 97,
+              connections: 100
+            },
+            tags: [
+              "Service",
+              "Umstieg"
+            ]
+          },
+
+          {
+            name: "British Airways",
+            logo: "🇬🇧",
+            rating: 4.5,
+            scores: {
+              overall: 91,
+              value: 90,
+              economy: 89,
+              business: 94,
+              comfort: 91,
+              wifi: 90,
+              connections: 98
+            },
+            tags: [
+              "Großes Streckennetz",
+              "Europa"
+            ]
+          }
+        ],
+
+
+        "paris": [
+          {
+            name: "Air France",
+            logo: "🇫🇷",
+            rating: 4.7,
+            scores: {
+              overall: 96,
+              value: 93,
+              economy: 94,
+              business: 98,
+              comfort: 97,
+              wifi: 92,
+              connections: 98
+            },
+            tags: [
+              "Europa",
+              "Premium Service"
+            ]
+          },
+
+          {
+            name: "Qatar Airways",
+            logo: "🇶🇦",
+            rating: 4.8,
+            scores: {
+              overall: 99,
+              value: 97,
+              economy: 97,
+              business: 100,
+              comfort: 98,
+              wifi: 97,
+              connections: 100
+            },
+            tags: [
+              "Service",
+              "Komfort"
+            ]
+          },
+
+          {
+            name: "Singapore Airlines",
+            logo: "🇸🇬",
+            rating: 4.8,
+            scores: {
+              overall: 98,
+              value: 94,
+              economy: 96,
+              business: 100,
+              comfort: 100,
+              wifi: 96,
+              connections: 98
+            },
+            tags: [
+              "Langstrecke",
+              "Komfort"
+            ]
+          }
+        ],
+
+
+        "tokyo": [
+          {
+            name: "ANA",
+            logo: "🇯🇵",
+            rating: 4.9,
+            scores: {
+              overall: 100,
+              value: 95,
+              economy: 100,
+              business: 99,
+              comfort: 99,
+              wifi: 95,
+              connections: 96
+            },
+            tags: [
+              "Service",
+              "Japan"
+            ]
+          },
+
+          {
+            name: "Japan Airlines",
+            logo: "🇯🇵",
+            rating: 4.8,
+            scores: {
+              overall: 98,
+              value: 96,
+              economy: 100,
+              business: 98,
+              comfort: 98,
+              wifi: 94,
+              connections: 96
+            },
+            tags: [
+              "Economy",
+              "Service"
+            ]
+          },
+
+          {
+            name: "Singapore Airlines",
+            logo: "🇸🇬",
+            rating: 4.8,
+            scores: {
+              overall: 97,
+              value: 94,
+              economy: 96,
+              business: 100,
+              comfort: 100,
+              wifi: 96,
+              connections: 99
+            },
+            tags: [
+              "Premium Service",
+              "Langstrecke"
+            ]
+          }
+        ],
+
+
+        "dubai": [
+          {
+            name: "Emirates",
+            logo: "🇦🇪",
+            rating: 4.9,
+            scores: {
+              overall: 100,
+              value: 95,
+              economy: 97,
+              business: 99,
+              comfort: 100,
+              wifi: 97,
+              connections: 100
+            },
+            tags: [
+              "Komfort",
+              "Entertainment"
+            ]
+          },
+
+          {
+            name: "Qatar Airways",
+            logo: "🇶🇦",
+            rating: 4.8,
+            scores: {
+              overall: 99,
+              value: 97,
+              economy: 97,
+              business: 100,
+              comfort: 98,
+              wifi: 97,
+              connections: 100
+            },
+            tags: [
+              "Service",
+              "Business"
+            ]
+          },
+
+          {
+            name: "Singapore Airlines",
+            logo: "🇸🇬",
+            rating: 4.8,
+            scores: {
+              overall: 97,
+              value: 94,
+              economy: 96,
+              business: 100,
+              comfort: 100,
+              wifi: 96,
+              connections: 98
+            },
+            tags: [
+              "Premium Service",
+              "Komfort"
+            ]
+          }
+        ],
+
+
+        "singapore": [
+          {
+            name: "Singapore Airlines",
+            logo: "🇸🇬",
+            rating: 4.9,
+            scores: {
+              overall: 100,
+              value: 96,
+              economy: 99,
+              business: 100,
+              comfort: 100,
+              wifi: 97,
+              connections: 100
+            },
+            tags: [
+              "Premium Service",
+              "Beste Gesamtqualität"
+            ]
+          },
+
+          {
+            name: "Qatar Airways",
+            logo: "🇶🇦",
+            rating: 4.8,
+            scores: {
+              overall: 98,
+              value: 97,
+              economy: 97,
+              business: 100,
+              comfort: 98,
+              wifi: 97,
+              connections: 100
+            },
+            tags: [
+              "Service",
+              "Komfort"
+            ]
+          },
+
+          {
+            name: "Emirates",
+            logo: "🇦🇪",
+            rating: 4.7,
+            scores: {
+              overall: 96,
+              value: 94,
+              economy: 95,
+              business: 98,
+              comfort: 99,
+              wifi: 96,
+              connections: 98
+            },
+            tags: [
+              "Entertainment",
+              "Komfort"
+            ]
+          }
+        ],
+
+
+        "sydney": [
+          {
+            name: "Qantas",
+            logo: "🇦🇺",
+            rating: 4.8,
+            scores: {
+              overall: 98,
+              value: 93,
+              economy: 97,
+              business: 98,
+              comfort: 97,
+              wifi: 96,
+              connections: 98
+            },
+            tags: [
+              "Australien",
+              "Service"
+            ]
+          },
+
+          {
+            name: "Singapore Airlines",
+            logo: "🇸🇬",
+            rating: 4.8,
+            scores: {
+              overall: 97,
+              value: 94,
+              economy: 96,
+              business: 100,
+              comfort: 100,
+              wifi: 96,
+              connections: 99
+            },
+            tags: [
+              "Komfort",
+              "Langstrecke"
+            ]
+          },
+
+          {
+            name: "Qatar Airways",
+            logo: "🇶🇦",
+            rating: 4.8,
+            scores: {
+              overall: 96,
+              value: 97,
+              economy: 96,
+              business: 100,
+              comfort: 98,
+              wifi: 97,
+              connections: 100
+            },
+            tags: [
+              "Preis-Leistung",
+              "Service"
+            ]
+          }
+        ],
+
+
+        "toronto": [
+          {
+            name: "Air Canada",
+            logo: "🇨🇦",
+            rating: 4.6,
+            scores: {
+              overall: 93,
+              value: 91,
+              economy: 91,
+              business: 94,
+              comfort: 92,
+              wifi: 93,
+              connections: 98
+            },
+            tags: [
+              "Kanada",
+              "Streckennetz"
+            ]
+          },
+
+          {
+            name: "Singapore Airlines",
+            logo: "🇸🇬",
+            rating: 4.8,
+            scores: {
+              overall: 97,
+              value: 94,
+              economy: 96,
+              business: 100,
+              comfort: 100,
+              wifi: 96,
+              connections: 99
+            },
+            tags: [
+              "Komfort",
+              "Service"
+            ]
+          },
+
+          {
+            name: "Qatar Airways",
+            logo: "🇶🇦",
+            rating: 4.8,
+            scores: {
+              overall: 97,
+              value: 97,
+              economy: 97,
+              business: 100,
+              comfort: 98,
+              wifi: 97,
+              connections: 100
+            },
+            tags: [
+              "Service",
+              "Langstrecke"
+            ]
+          }
+        ],
+
+
+        "bangkok": [
+          {
+            name: "Singapore Airlines",
+            logo: "🇸🇬",
+            rating: 4.8,
+            scores: {
+              overall: 99,
+              value: 96,
+              economy: 98,
+              business: 100,
+              comfort: 100,
+              wifi: 97,
+              connections: 100
+            },
+            tags: [
+              "Service",
+              "Komfort"
+            ]
+          },
+
+          {
+            name: "Thai Airways",
+            logo: "🇹🇭",
+            rating: 4.7,
+            scores: {
+              overall: 95,
+              value: 94,
+              economy: 96,
+              business: 96,
+              comfort: 96,
+              wifi: 91,
+              connections: 96
+            },
+            tags: [
+              "Thailand",
+              "Service"
+            ]
+          },
+
+          {
+            name: "Qatar Airways",
+            logo: "🇶🇦",
+            rating: 4.8,
+            scores: {
+              overall: 97,
+              value: 97,
+              economy: 97,
+              business: 100,
+              comfort: 98,
+              wifi: 97,
+              connections: 100
+            },
+            tags: [
+              "Preis-Leistung",
+              "Komfort"
+            ]
+          }
+        ],
+
+
+        "jakarta": [
+          {
+            name: "Singapore Airlines",
+            logo: "🇸🇬",
+            rating: 4.8,
+            scores: {
+              overall: 99,
+              value: 96,
+              economy: 98,
+              business: 100,
+              comfort: 100,
+              wifi: 97,
+              connections: 100
+            },
+            tags: [
+              "Premium Service",
+              "Komfort"
+            ]
+          },
+
+          {
+            name: "Qatar Airways",
+            logo: "🇶🇦",
+            rating: 4.8,
+            scores: {
+              overall: 98,
+              value: 97,
+              economy: 97,
+              business: 100,
+              comfort: 98,
+              wifi: 97,
+              connections: 100
+            },
+            tags: [
+              "Preis-Leistung",
+              "Service"
+            ]
+          },
+
+          {
+            name: "Garuda Indonesia",
+            logo: "🇮🇩",
+            rating: 4.6,
+            scores: {
+              overall: 91,
+              value: 93,
+              economy: 94,
+              business: 94,
+              comfort: 92,
+              wifi: 88,
+              connections: 93
+            },
+            tags: [
+              "Indonesien",
+              "Service"
+            ]
+          }
+        ],
+
+
+        "frankfurt": [
+          {
+            name: "Lufthansa",
+            logo: "🇩🇪",
+            rating: 4.6,
+            scores: {
+              overall: 93,
+              value: 90,
+              economy: 91,
+              business: 95,
+              comfort: 91,
+              wifi: 92,
+              connections: 100
+            },
+            tags: [
+              "Deutschland",
+              "Streckennetz"
+            ]
+          },
+
+          {
+            name: "Singapore Airlines",
+            logo: "🇸🇬",
+            rating: 4.8,
+            scores: {
+              overall: 98,
+              value: 94,
+              economy: 96,
+              business: 100,
+              comfort: 100,
+              wifi: 97,
+              connections: 99
+            },
+            tags: [
+              "Premium Service",
+              "Langstrecke"
+            ]
+          },
+
+          {
+            name: "Qatar Airways",
+            logo: "🇶🇦",
+            rating: 4.8,
+            scores: {
+              overall: 98,
+              value: 97,
+              economy: 97,
+              business: 100,
+              comfort: 98,
+              wifi: 97,
+              connections: 100
+            },
+            tags: [
+              "Service",
+              "Komfort"
+            ]
+          }
+        ]
+
+      };
+
+
+      /* ===================================================
+         ÜBERSETZUNGEN
+         =================================================== */
+
+      const texts = {
+
+        de: {
+          title: "Airline Finder",
+          description:
+            "Finde die besten Airlines für dein Reiseziel.",
+          destination: "Reiseziel",
+          priority: "Priorität",
+          search: "🔎 Airlines finden",
+          results: "Top Airlines",
+          overall: "⭐ Beste Gesamtqualität",
+          value: "💰 Bestes Preis-Leistungs-Verhältnis",
+          economy: "🧳 Beste Economy",
+          business: "👑 Beste Business Class",
+          comfort: "🛋️ Bester Komfort",
+          wifi: "📶 Bestes WLAN",
+          connections: "🔄 Beste Umsteigeverbindungen",
+          topPick: "Top Pick"
+        },
+
+        en: {
+          title: "Airline Finder",
+          description:
+            "Find the best airlines for your destination.",
+          destination: "Destination",
+          priority: "Priority",
+          search: "🔎 Find Airlines",
+          results: "Top Airlines",
+          overall: "⭐ Best Overall",
+          value: "💰 Best Value for Money",
+          economy: "🧳 Best Economy",
+          business: "👑 Best Business Class",
+          comfort: "🛋️ Best Comfort",
+          wifi: "📶 Best Wi-Fi",
+          connections: "🔄 Best Connections",
+          topPick: "Top Pick"
+        }
+
+      };
+
+
+      /* ===================================================
+         SPRACHE
+         =================================================== */
+
+      function getAirlineLanguage() {
+
+        if (
+          languageSelect &&
+          languageSelect.value === "en"
+        ) {
+
+          return "en";
+
+        }
+
+        return "de";
+
+      }
+
+
+      function updateAirlineLanguage() {
+
+        const lang =
+          getAirlineLanguage();
+
+        const t =
+          texts[lang];
+
+        document.getElementById(
+          "airlineFinderTitle"
+        ).textContent = t.title;
+
+        document.getElementById(
+          "airlineFinderDescription"
+        ).textContent = t.description;
+
+        document.getElementById(
+          "airlineDestinationLabel"
+        ).textContent = t.destination;
+
+        document.getElementById(
+          "airlinePriorityLabel"
+        ).textContent = t.priority;
+
+        searchButton.textContent =
+          t.search;
+
+        const priorityOptions =
+          priority.options;
+
+        priorityOptions[0].text =
+          t.overall;
+
+        priorityOptions[1].text =
+          t.value;
+
+        priorityOptions[2].text =
+          t.economy;
+
+        priorityOptions[3].text =
+          t.business;
+
+        priorityOptions[4].text =
+          t.comfort;
+
+        priorityOptions[5].text =
+          t.wifi;
+
+        priorityOptions[6].text =
+          t.connections;
+
+      }
+
+
+      /* ===================================================
+         MODAL ÖFFNEN
+         =================================================== */
+
+      function openAirlineFinder() {
+
+        modal.classList.add(
+          "airline-open"
+        );
+
+        modal.setAttribute(
+          "aria-hidden",
+          "false"
+        );
+
+        document.body.style.overflow =
+          "hidden";
+
+        updateAirlineLanguage();
+
+      }
+
+
+      /* ===================================================
+         MODAL SCHLIESSEN
+         =================================================== */
+
+      function closeAirlineFinder() {
+
+        modal.classList.remove(
+          "airline-open"
+        );
+
+        modal.setAttribute(
+          "aria-hidden",
+          "true"
+        );
+
+        document.body.style.overflow =
+          "";
+
+      }
+
+
+      /* ===================================================
+         KLICK AUF KARTE
+         =================================================== */
+
+      teaser.addEventListener(
+        "click",
+        function () {
+
+          openAirlineFinder();
+
+        }
+      );
+
+
+      /* ===================================================
+         ENTER / SPACE
+         =================================================== */
+
+      teaser.addEventListener(
+        "keydown",
+        function (event) {
+
+          if (
+            event.key === "Enter" ||
+            event.key === " "
+          ) {
+
+            event.preventDefault();
+
+            openAirlineFinder();
+
+          }
+
+        }
+      );
+
+
+      /* ===================================================
+         SCHLIESSEN
+         =================================================== */
+
+      closeButton.addEventListener(
+        "click",
+        function () {
+
+          closeAirlineFinder();
+
+        }
+      );
+
+
+      /* ===================================================
+         AUßERHALB KLICKEN
+         =================================================== */
+
+      modal.addEventListener(
+        "click",
+        function (event) {
+
+          if (
+            event.target === modal
+          ) {
+
+            closeAirlineFinder();
+
+          }
+
+        }
+      );
+
+
+      /* ===================================================
+         ESC
+         =================================================== */
+
+      document.addEventListener(
+        "keydown",
+        function (event) {
+
+          if (
+            event.key === "Escape" &&
+            modal.classList.contains(
+              "airline-open"
+            )
+          ) {
+
+            closeAirlineFinder();
+
+          }
+
+        }
+      );
+
+
+      /* ===================================================
+         AIRLINES SUCHEN
+         =================================================== */
+
+      searchButton.addEventListener(
+        "click",
+        function () {
+
+          const selectedDestination =
+            destination.value;
+
+          const selectedPriority =
+            priority.value;
+
+          const list =
+            airlines[
+              selectedDestination
+            ] || [];
+
+          const sorted =
+            [...list].sort(
+              function (a, b) {
+
+                return (
+                  b.scores[selectedPriority] -
+                  a.scores[selectedPriority]
+                );
+
+              }
+            );
+
+
+          const lang =
+            getAirlineLanguage();
+
+          const t =
+            texts[lang];
+
+
+          let html = `
+
+            <h3 class="airline-results-heading">
+              ${t.results}
+            </h3>
+
+          `;
+
+
+          sorted
+            .slice(0, 3)
+            .forEach(
+              function (airline, index) {
+
+                let medal;
+
+                if (index === 0) {
+                  medal = "🥇";
+                }
+                else if (index === 1) {
+                  medal = "🥈";
+                }
+                else {
+                  medal = "🥉";
+                }
+
+
+                html += `
+
+                  <div class="airline-result-card">
+
+                    <div class="airline-result-rank">
+                      ${medal}
+                    </div>
+
+                    <div class="airline-result-logo">
+                      ${airline.logo}
+                    </div>
+
+                    <div class="airline-result-info">
+
+                      <div class="airline-result-name">
+
+                        ${airline.name}
+
+                        ${
+                          index === 0
+                            ? `
+                              <span class="airline-top-pick">
+                                ⭐ ${t.topPick}
+                              </span>
+                            `
+                            : ""
+                        }
+
+                      </div>
+
+                      <div class="airline-result-rating">
+                        ⭐ ${airline.rating}/5
+                      </div>
+
+                      <div class="airline-result-tags">
+
+                        ${
+                          airline.tags
+                            .map(
+                              function (tag) {
+
+                                return `
+                                  <span class="airline-result-tag">
+                                    ${tag}
+                                  </span>
+                                `;
+
+                              }
+                            )
+                            .join("")
+                        }
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                `;
+
+              }
+            );
+
+
+          results.innerHTML =
+            html;
+
+        }
+      );
+
+
+      /* ===================================================
+         SPRACHE ÜBERWACHEN
+         =================================================== */
+
+      if (languageSelect) {
+
+        languageSelect.addEventListener(
+          "change",
+          function () {
+
+            updateAirlineLanguage();
+
+            if (
+              results.innerHTML.trim() !== ""
+            ) {
+
+              searchButton.click();
+
+            }
+
+          }
+        );
+
+      }
+
+
+      /* ===================================================
+         INITIALISIERUNG
+         =================================================== */
+
+      updateAirlineLanguage();
+
+    });
+
+  </script>
+
+
+</body>
+
+</html>
