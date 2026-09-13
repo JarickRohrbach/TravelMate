@@ -4047,3 +4047,394 @@ document.addEventListener(
 
 
 })();
+/* =========================================================
+   TRAVELMATE - FINAL LANGUAGE PATCH
+   Behebt die fehlenden Übersetzungen der aktuellen HTML-Version
+   ========================================================= */
+
+(function () {
+
+    function TM_translateAll() {
+
+        const lang =
+            localStorage.getItem("travelmateLanguage") === "en"
+                ? "en"
+                : "de";
+
+        const t = translations[lang];
+
+        if (!t) return;
+
+
+        /* =====================================================
+           1. KARTEN-BESCHREIBUNGEN
+           ===================================================== */
+
+        const descriptions = document.querySelectorAll(
+            ".tool-card .tool-description"
+        );
+
+        const descriptionTexts = lang === "en"
+            ? [
+                "Language and app settings",
+                "Convert currencies worldwide quickly",
+                "Check your connection time between flights",
+                "Compare times around the world",
+                "Plan and calculate your travel costs"
+            ]
+            : [
+                "Sprache und App-Einstellungen",
+                "Währungen weltweit schnell umrechnen",
+                "Prüfe deine Umsteigezeit zwischen Flügen",
+                "Uhrzeiten weltweit vergleichen",
+                "Plane und berechne deine Reisekosten"
+            ];
+
+        descriptions.forEach(function (element, index) {
+
+            if (descriptionTexts[index]) {
+                element.textContent =
+                    descriptionTexts[index];
+            }
+
+        });
+
+
+        /* =====================================================
+           2. AIRLINE FINDER TEASER
+           ===================================================== */
+
+        const airlineCard =
+            document.querySelector(
+                ".airline-finder-card"
+            );
+
+        if (airlineCard) {
+
+            const title =
+                airlineCard.querySelector("h2");
+
+            const description =
+                airlineCard.querySelector("p");
+
+            if (title) {
+
+                title.textContent =
+                    t.airlineFinder;
+
+            }
+
+            if (description) {
+
+                description.textContent =
+                    t.airlineDescription;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           3. AIRLINE FINDER MODAL
+           ===================================================== */
+
+        const modal =
+            document.getElementById(
+                "airlineFinderModal"
+            );
+
+        if (modal) {
+
+            const title =
+                modal.querySelector(
+                    ".modal-content > h2"
+                );
+
+            const description =
+                modal.querySelector(
+                    ".airline-modal-subtitle"
+                );
+
+            const labels =
+                modal.querySelectorAll(
+                    "label"
+                );
+
+            const searchButton =
+                modal.querySelector(
+                    'button[onclick="findAirlines()"]'
+                );
+
+            if (title) {
+
+                title.textContent =
+                    "✈️ " +
+                    t.airlineFinder;
+
+            }
+
+            if (description) {
+
+                description.textContent =
+                    t.airlineDescription;
+
+            }
+
+            if (labels[0]) {
+
+                labels[0].textContent =
+                    t.airlineDestination;
+
+            }
+
+            if (labels[1]) {
+
+                labels[1].textContent =
+                    t.airlinePriority;
+
+            }
+
+            if (searchButton) {
+
+                searchButton.textContent =
+                    t.airlineSearch;
+
+            }
+
+
+            /* ---------------------------------------------
+               PRIORITY DROPDOWN
+               --------------------------------------------- */
+
+            const priority =
+                document.getElementById(
+                    "airlinePriority"
+                );
+
+            if (priority) {
+
+                const options =
+                    priority.options;
+
+
+                if (options[0]) {
+
+                    options[0].textContent =
+                        t.bestOverall;
+
+                }
+
+                if (options[1]) {
+
+                    options[1].textContent =
+                        t.bestEconomy;
+
+                }
+
+                if (options[2]) {
+
+                    options[2].textContent =
+                        t.bestBusiness;
+
+                }
+
+                if (options[3]) {
+
+                    options[3].textContent =
+                        t.bestComfort;
+
+                }
+
+            }
+
+        }
+
+
+        /* =====================================================
+           4. ACCOUNT STATUS
+           ===================================================== */
+
+        const accountStatus =
+            document.getElementById(
+                "accountStatus"
+            );
+
+        if (
+            accountStatus &&
+            !localStorage.getItem(
+                "travelmateUser"
+            )
+        ) {
+
+            accountStatus.textContent =
+                t.accountStatus;
+
+        }
+
+
+        /* =====================================================
+           5. WÄHRUNGSRECHNER - LOADING TEXT
+           ===================================================== */
+
+        const fromCurrency =
+            document.getElementById(
+                "fromCurrency"
+            );
+
+        const toCurrency =
+            document.getElementById(
+                "toCurrency"
+            );
+
+        if (
+            fromCurrency &&
+            fromCurrency.options.length === 1 &&
+            fromCurrency.options[0].value === ""
+        ) {
+
+            fromCurrency.options[0].textContent =
+                t.loadingCurrencies;
+
+        }
+
+        if (
+            toCurrency &&
+            toCurrency.options.length === 1 &&
+            toCurrency.options[0].value === ""
+        ) {
+
+            toCurrency.options[0].textContent =
+                t.loadingCurrencies;
+
+        }
+
+
+        /* =====================================================
+           6. CLOSE-BUTTONS
+           ===================================================== */
+
+        document
+            .querySelectorAll(
+                ".close-button"
+            )
+            .forEach(function (button) {
+
+                button.setAttribute(
+                    "aria-label",
+                    lang === "en"
+                        ? "Close"
+                        : "Schließen"
+                );
+
+            });
+
+
+        /* =====================================================
+           7. HTML-SPRACHE
+           ===================================================== */
+
+        document.documentElement.lang =
+            lang;
+
+    }
+
+
+    /* =========================================================
+       LANGUAGE SELECT ÜBERWACHEN
+       ========================================================= */
+
+    const languageSelect =
+        document.getElementById(
+            "languageSelect"
+        );
+
+
+    if (languageSelect) {
+
+        languageSelect.addEventListener(
+            "change",
+            function () {
+
+                setTimeout(
+                    TM_translateAll,
+                    20
+                );
+
+                setTimeout(
+                    TM_translateAll,
+                    200
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =========================================================
+       NACH DEM LADEN
+       ========================================================= */
+
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                setTimeout(
+                    TM_translateAll,
+                    50
+                );
+
+                setTimeout(
+                    TM_translateAll,
+                    300
+                );
+
+            }
+        );
+
+    } else {
+
+        TM_translateAll();
+
+    }
+
+
+    /* =========================================================
+       AUCH BEI ÖFFNEN DES AIRLINE FINDERS
+       ========================================================= */
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            const airlineCard =
+                event.target.closest(
+                    ".airline-finder-card"
+                );
+
+            if (airlineCard) {
+
+                setTimeout(
+                    TM_translateAll,
+                    50
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       GLOBALE FUNKTION
+       ========================================================= */
+
+    window.TravelMateTranslate =
+        TM_translateAll;
+
+})();
