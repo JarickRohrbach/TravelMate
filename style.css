@@ -1,0 +1,1418 @@
+/* =========================================================
+   TRAVELMATE — MODERN BLUE & WHITE DESIGN
+   Complete style.css
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --blue: #087cf5;
+    --blue-dark: #045fc4;
+    --blue-light: #eaf4ff;
+    --blue-soft: #f4f9ff;
+
+    --white: #ffffff;
+    --background: #f4f8fc;
+
+    --text: #10233f;
+    --text-light: #66758a;
+    --border: #dce7f2;
+
+    --shadow:
+        0 12px 35px rgba(21, 76, 128, 0.10);
+
+    --shadow-hover:
+        0 18px 45px rgba(21, 76, 128, 0.17);
+
+    --radius: 22px;
+}
+
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            180deg,
+            #eef7ff 0%,
+            #f7fbff 32%,
+            #f4f8fc 100%
+        );
+
+    color: var(--text);
+
+    -webkit-font-smoothing: antialiased;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+header {
+    position: relative;
+
+    text-align: center;
+
+    padding:
+        45px
+        20px
+        35px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #087cf5,
+            #005dcc
+        );
+
+    color: white;
+
+    box-shadow:
+        0 10px 35px
+        rgba(0, 103, 214, 0.18);
+}
+
+
+/* Decorative glow */
+
+header::before {
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    top: -150px;
+    left: -80px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.10);
+}
+
+header::after {
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    bottom: -140px;
+    right: -70px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.08);
+}
+
+
+header h1 {
+    position: relative;
+
+    z-index: 2;
+
+    margin:
+        0
+        0
+        8px;
+
+    font-size:
+        clamp(36px, 9vw, 58px);
+
+    font-weight: 800;
+
+    letter-spacing:
+        -1.5px;
+}
+
+
+header p {
+    position: relative;
+
+    z-index: 2;
+
+    margin: 0;
+
+    color:
+        rgba(255,255,255,0.88);
+
+    font-size: 17px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+main {
+    width: 100%;
+
+    max-width: 720px;
+
+    margin:
+        0
+        auto;
+
+    padding:
+        25px
+        18px
+        60px;
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card {
+    position: relative;
+
+    background:
+        rgba(255,255,255,0.96);
+
+    padding:
+        25px;
+
+    margin-bottom:
+        20px;
+
+    border:
+        1px solid
+        rgba(220,231,242,0.8);
+
+    border-radius:
+        var(--radius);
+
+    box-shadow:
+        var(--shadow);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    overflow: hidden;
+}
+
+
+.card:hover {
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        var(--shadow-hover);
+}
+
+
+/* Blue accent */
+
+.card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 5px;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--blue),
+            #42a5ff
+        );
+
+    border-radius:
+        10px;
+}
+
+
+/* =========================================================
+   HEADINGS
+   ========================================================= */
+
+h2 {
+    margin:
+        0
+        0
+        18px;
+
+    font-size: 22px;
+
+    font-weight: 750;
+
+    letter-spacing:
+        -0.4px;
+
+    color:
+        var(--text);
+}
+
+
+h3 {
+    text-align: center;
+
+    padding: 10px;
+
+    margin:
+        10px
+        0;
+
+    color:
+        var(--text);
+}
+
+
+/* =========================================================
+   INPUTS / SELECTS / BUTTONS
+   ========================================================= */
+
+input,
+select,
+button {
+    width: 100%;
+
+    min-height: 52px;
+
+    padding:
+        14px
+        16px;
+
+    margin:
+        8px
+        0;
+
+    border-radius:
+        14px;
+
+    font-size:
+        16px;
+
+    font-family:
+        inherit;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+/* Inputs */
+
+input,
+select {
+    background:
+        #fbfdff;
+
+    color:
+        var(--text);
+
+    border:
+        1px solid
+        var(--border);
+
+    outline:
+        none;
+}
+
+
+input:focus,
+select:focus {
+    border-color:
+        var(--blue);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(8,124,245,0.12);
+
+    background:
+        white;
+}
+
+
+/* Placeholder */
+
+input::placeholder {
+    color:
+        #9aa9ba;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+button {
+    border:
+        none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #087cf5,
+            #0068dc
+        );
+
+    color:
+        white;
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+
+    box-shadow:
+        0 7px 18px
+        rgba(8,124,245,0.22);
+}
+
+
+button:hover {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 10px 24px
+        rgba(8,124,245,0.30);
+}
+
+
+button:active {
+    transform:
+        translateY(0);
+
+    opacity:
+        0.88;
+}
+
+
+/* Secondary button */
+
+.secondary-button {
+    background:
+        #eaf3fc;
+
+    color:
+        #1764a5;
+
+    box-shadow:
+        none;
+}
+
+
+.secondary-button:hover {
+    background:
+        #dcecff;
+
+    box-shadow:
+        none;
+}
+
+
+/* =========================================================
+   RESULT AREAS
+   ========================================================= */
+
+#currencyResult,
+#connectionResult,
+#timezoneResult,
+#budgetResult {
+    margin-top:
+        15px;
+
+    padding:
+        16px;
+
+    border-radius:
+        14px;
+
+    background:
+        var(--blue-soft);
+
+    border:
+        1px solid
+        #d8eaff;
+
+    color:
+        #145b9f;
+
+    font-weight:
+        650;
+
+    text-align:
+        center;
+
+    min-height:
+        50px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+}
+
+
+/* =========================================================
+   ACCOUNT CARD
+   ========================================================= */
+
+.account-card {
+    background:
+        white;
+
+    margin:
+        15px
+        auto;
+
+    max-width:
+        720px;
+
+    padding:
+        20px
+        22px;
+
+    border-radius:
+        20px;
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    gap:
+        18px;
+
+    border:
+        1px solid
+        var(--border);
+
+    box-shadow:
+        var(--shadow);
+}
+
+
+.account-card h2 {
+    margin:
+        0
+        0
+        5px;
+}
+
+
+.account-card p {
+    margin:
+        0;
+
+    color:
+        var(--text-light);
+
+    font-size:
+        14px;
+}
+
+
+.account-card button {
+    width:
+        auto;
+
+    min-width:
+        110px;
+
+    padding:
+        12px
+        20px;
+
+    margin:
+        0;
+}
+
+
+/* =========================================================
+   MODALS
+   ========================================================= */
+
+.modal {
+    display:
+        none;
+
+    position:
+        fixed;
+
+    z-index:
+        1000;
+
+    inset:
+        0;
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    padding:
+        20px;
+
+    background:
+        rgba(5,25,50,0.58);
+
+    backdrop-filter:
+        blur(8px);
+
+    -webkit-backdrop-filter:
+        blur(8px);
+
+    overflow-y:
+        auto;
+}
+
+
+.modal.active {
+    display:
+        block;
+}
+
+
+.modal-content {
+    position:
+        relative;
+
+    background:
+        white;
+
+    width:
+        100%;
+
+    max-width:
+        520px;
+
+    margin:
+        70px
+        auto;
+
+    padding:
+        28px;
+
+    border-radius:
+        26px;
+
+    box-shadow:
+        0 30px 80px
+        rgba(0,30,70,0.25);
+
+    animation:
+        modalIn
+        0.25s
+        ease;
+}
+
+
+@keyframes modalIn {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(20px)
+            scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+.close-button {
+    position:
+        absolute;
+
+    right:
+        14px;
+
+    top:
+        12px;
+
+    width:
+        42px;
+
+    height:
+        42px;
+
+    min-height:
+        42px;
+
+    padding:
+        0;
+
+    margin:
+        0;
+
+    border-radius:
+        50%;
+
+    background:
+        #edf4fb;
+
+    color:
+        #45617e;
+
+    font-size:
+        24px;
+
+    line-height:
+        42px;
+
+    box-shadow:
+        none;
+}
+
+
+.close-button:hover {
+    background:
+        #dceafa;
+
+    color:
+        #0b65bb;
+
+    box-shadow:
+        none;
+}
+
+
+/* =========================================================
+   ACCOUNT MESSAGE
+   ========================================================= */
+
+#accountMessage {
+    text-align:
+        center;
+
+    margin-top:
+        15px;
+
+    padding:
+        10px;
+
+    color:
+        var(--blue-dark);
+
+    font-weight:
+        600;
+}
+
+
+/* =========================================================
+   AIRLINE FINDER TEASER
+   ========================================================= */
+
+#airlineFinderTeaser,
+.airline-teaser {
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+    cursor:
+        pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #087cf5 0%,
+            #005dcc 100%
+        );
+
+    color:
+        white;
+
+    border-radius:
+        24px;
+
+    padding:
+        26px;
+
+    margin-bottom:
+        20px;
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,104,220,0.25);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+#airlineFinderTeaser:hover,
+.airline-teaser:hover {
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 20px 50px
+        rgba(0,104,220,0.32);
+}
+
+
+#airlineFinderTeaser::after,
+.airline-teaser::after {
+    content:
+        "✈";
+
+    position:
+        absolute;
+
+    right:
+        20px;
+
+    bottom:
+        -20px;
+
+    font-size:
+        110px;
+
+    opacity:
+        0.10;
+
+    transform:
+        rotate(-10deg);
+}
+
+
+#airlineFinderTeaser h2,
+.airline-teaser h2 {
+    color:
+        white;
+
+    margin:
+        0
+        0
+        8px;
+
+    position:
+        relative;
+
+    z-index:
+        2;
+}
+
+
+#airlineFinderTeaser p,
+.airline-teaser p {
+    color:
+        rgba(255,255,255,0.88);
+
+    margin:
+        0;
+
+    position:
+        relative;
+
+    z-index:
+        2;
+}
+
+
+/* =========================================================
+   AIRLINE FINDER MODAL
+   ========================================================= */
+
+#airlineFinderModal {
+    display:
+        none;
+
+    position:
+        fixed;
+
+    z-index:
+        1100;
+
+    inset:
+        0;
+
+    padding:
+        20px;
+
+    background:
+        rgba(5,25,50,0.60);
+
+    backdrop-filter:
+        blur(10px);
+
+    -webkit-backdrop-filter:
+        blur(10px);
+
+    overflow-y:
+        auto;
+}
+
+
+#airlineFinderModal.active {
+    display:
+        block;
+}
+
+
+#airlineFinderModal .modal-content {
+    max-width:
+        620px;
+
+    margin:
+        45px
+        auto;
+}
+
+
+/* =========================================================
+   AIRLINE RESULTS
+   ========================================================= */
+
+.airline-result {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        15px;
+
+    padding:
+        16px;
+
+    margin:
+        10px
+        0;
+
+    background:
+        #f8fbff;
+
+    border:
+        1px solid
+        #dceafa;
+
+    border-radius:
+        18px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.airline-result:hover {
+    transform:
+        translateX(3px);
+
+    box-shadow:
+        0 8px 22px
+        rgba(15,80,140,0.10);
+}
+
+
+.airline-rank {
+    width:
+        38px;
+
+    font-size:
+        24px;
+
+    text-align:
+        center;
+
+    flex-shrink:
+        0;
+}
+
+
+.airline-logo {
+    width:
+        52px;
+
+    height:
+        52px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        white;
+
+    border-radius:
+        15px;
+
+    font-size:
+        29px;
+
+    box-shadow:
+        0 4px 14px
+        rgba(0,40,80,0.08);
+
+    flex-shrink:
+        0;
+}
+
+
+.airline-info {
+    flex:
+        1;
+
+    min-width:
+        0;
+}
+
+
+.airline-name {
+    font-size:
+        17px;
+
+    font-weight:
+        750;
+
+    color:
+        var(--text);
+}
+
+
+.airline-rating {
+    margin-top:
+        4px;
+
+    font-size:
+        14px;
+
+    color:
+        #59708a;
+}
+
+
+.airline-tags {
+    margin-top:
+        7px;
+
+    font-size:
+        12px;
+
+    color:
+        #3974a8;
+}
+
+
+.airline-premium {
+    display:
+        inline-block;
+
+    margin-left:
+        6px;
+
+    padding:
+        3px
+        7px;
+
+    border-radius:
+        8px;
+
+    background:
+        #e5f2ff;
+
+    color:
+        #086bd3;
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    vertical-align:
+        middle;
+}
+
+
+/* =========================================================
+   AIRLINE SEARCH BUTTON
+   ========================================================= */
+
+#airlineSearchButton {
+    margin-top:
+        14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #087cf5,
+            #005dcc
+        );
+}
+
+
+/* =========================================================
+   EXCHANGE RATE ATTRIBUTION
+   ========================================================= */
+
+#exchangeRateAttribution {
+    color:
+        #8293a6;
+
+    text-align:
+        center;
+
+    font-size:
+        11px;
+}
+
+
+#exchangeRateAttribution a {
+    color:
+        #087cf5;
+
+    text-decoration:
+        none;
+}
+
+
+#exchangeRateAttribution a:hover {
+    text-decoration:
+        underline;
+}
+
+
+/* =========================================================
+   SELECT ARROWS
+   ========================================================= */
+
+select {
+    appearance:
+        auto;
+
+    -webkit-appearance:
+        auto;
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+a {
+    color:
+        var(--blue);
+
+    transition:
+        color 0.2s ease;
+}
+
+
+a:hover {
+    color:
+        var(--blue-dark);
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+    width:
+        8px;
+}
+
+
+::-webkit-scrollbar-track {
+    background:
+        #edf3f8;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background:
+        #b9cde0;
+
+    border-radius:
+        20px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background:
+        #8eabc5;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (
+    max-width: 600px
+) {
+
+    header {
+        padding:
+            35px
+            18px
+            28px;
+    }
+
+
+    header h1 {
+        font-size:
+            40px;
+    }
+
+
+    header p {
+        font-size:
+            15px;
+    }
+
+
+    main {
+        padding:
+            18px
+            12px
+            45px;
+    }
+
+
+    .card {
+        padding:
+            21px
+            18px;
+
+        border-radius:
+            19px;
+    }
+
+
+    .account-card {
+        margin:
+            12px;
+
+        padding:
+            17px;
+
+        align-items:
+            flex-start;
+    }
+
+
+    .account-card button {
+        min-width:
+            90px;
+
+        padding:
+            11px
+            14px;
+    }
+
+
+    .modal {
+        padding:
+            12px;
+    }
+
+
+    .modal-content {
+        margin:
+            35px
+            auto;
+
+        padding:
+            24px
+            18px;
+
+        border-radius:
+            22px;
+    }
+
+
+    #airlineFinderModal {
+        padding:
+            12px;
+    }
+
+
+    #airlineFinderModal .modal-content {
+        margin:
+            25px
+            auto;
+
+        padding:
+            23px
+            17px;
+    }
+
+
+    .airline-result {
+        gap:
+            10px;
+
+        padding:
+            13px;
+    }
+
+
+    .airline-rank {
+        width:
+            28px;
+
+        font-size:
+            20px;
+    }
+
+
+    .airline-logo {
+        width:
+            44px;
+
+        height:
+            44px;
+
+        font-size:
+            24px;
+    }
+
+
+    .airline-name {
+        font-size:
+            15px;
+    }
+
+
+    .airline-tags {
+        font-size:
+            11px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL SCREENS
+   ========================================================= */
+
+@media (
+    max-width: 380px
+) {
+
+    header h1 {
+        font-size:
+            34px;
+    }
+
+
+    .card {
+        padding:
+            18px
+            15px;
+    }
+
+
+    input,
+    select,
+    button {
+        font-size:
+            15px;
+    }
+
+
+    .account-card {
+        flex-direction:
+            column;
+    }
+
+
+    .account-card button {
+        width:
+            100%;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (
+    prefers-reduced-motion: reduce
+) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            0.01ms !important;
+
+        scroll-behavior:
+            auto !important;
+    }
+
+}
