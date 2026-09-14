@@ -1,6 +1,6 @@
 /* TRAVELMATE - COMPLETE SCRIPT
    German / English
-   Keeps the existing TravelMate functions and also fixes language switching.
+   Keeps the existing TravelVanta functions and also fixes language switching.
 */
 
 const translations = {
@@ -13,7 +13,7 @@ const translations = {
     logout: "Abmelden",
     email: "E-Mail-Adresse",
     password: "Passwort",
-    welcome: "Willkommen bei TravelMate! ✈️",
+    welcome: "Willkommen bei TravelVanta! ✈️",
     settings: "⚙️ Einstellungen",
     settingsDescription: "Sprache und App-Einstellungen",
     language: "Sprache",
@@ -102,7 +102,7 @@ const translations = {
     logout: "Sign out",
     email: "Email address",
     password: "Password",
-    welcome: "Welcome to TravelMate! ✈️",
+    welcome: "Welcome to TravelVanta! ✈️",
     settings: "⚙️ Settings",
     settingsDescription: "Language and app settings",
     language: "Language",
@@ -895,7 +895,7 @@ async function loadCurrencies() {
     return true;
   } catch (primaryError) {
     console.warn(
-      "TravelMate primary currency API failed:",
+      "TravelVanta primary currency API failed:",
       primaryError
     );
   }
