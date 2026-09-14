@@ -9,7 +9,7 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "./travelmate-Icon.png.PNG",
+      "src": "./travelmate-icon.png.PNG",
       "sizes": "512x512",
       "type": "image/png"
     }
