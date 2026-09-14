@@ -1,6 +1,6 @@
 {
-  "name": "TravelMate",
-  "short_name": "TravelMate",
+  "name": "TravelVanta",
+  "short_name": "TravelVanta",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
